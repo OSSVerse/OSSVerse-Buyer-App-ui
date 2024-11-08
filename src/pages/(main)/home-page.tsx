@@ -7,12 +7,12 @@ import { useMarketPlaceProducts } from "@/services/marketplace-service";
 import type { FC } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import MarketPlacePage from "../(dashboard)/marketplace/marketplace-page";
-import { ChevronLeft, ExternalLink, SquareArrowOutUpRight } from "lucide-react";
+import { ExternalLink, SquareArrowOutUpRight } from "lucide-react";
 import LatestNews from "./components/LatestNews";
 import { FeatureCard } from "@/components/common/feature-card";
 import { ROUTE_PATH } from "@/routes/route-path";
 import { PRODUCT_TYPE } from "@/lib/constant";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import PagePagination from "@/components/common/page-pagination";
 const TabItem = ({
   title,
   badge,
@@ -31,6 +31,11 @@ const TabItem = ({
 
 const HomePage: FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentPage = Number(searchParams.get("page")) || 1;
+
+  const featuredCurrentPage = Number(searchParams.get("fpage")) || 1;
+
   const activeTab = searchParams.get("f") || "";
   const { data: products, isLoading } = useMarketPlaceProducts(
     "",
@@ -38,6 +43,32 @@ const HomePage: FC = () => {
   );
   const { data: productsForOSAP, isLoading: isLoadingForOSAP } =
     useMarketPlaceProducts("", "");
+
+  const onPageChange = (page: number) => {
+    searchParams.set("page", page.toString());
+    setSearchParams(searchParams);
+  };
+
+
+  const getPageItems = () => {
+    return products?.slice((currentPage - 1) * 4, currentPage * 4);
+  };
+
+  const pageCount = Math.ceil(products ? products?.length / 4 : 0);
+
+
+  const getFeaturedPageItems = () => {
+    return productsForOSAP?.slice((featuredCurrentPage - 1) * 4, featuredCurrentPage * 4);
+  };
+
+  const featuredPageCount = Math.ceil(productsForOSAP ? productsForOSAP?.length / 4 : 0);
+
+  const onFeaturedPageChange = (page: number) => {
+    searchParams.set("fpage", page.toString());
+    setSearchParams(searchParams);
+  };
+
+
 
   const onChange = (value: string) => {
     if (value === "") {
@@ -88,33 +119,8 @@ const HomePage: FC = () => {
               </TabsList>
             </Tabs>
             {/* pagination */}
-              <div>
-                <Pagination>
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious href="#">
-                        <ChevronLeft className="h-4 w-4" />
-                      </PaginationPrevious>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#" isActive>
-                        2
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">3</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationNext href="#" />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
+            <div>
+              <PagePagination currentPage={currentPage} totalPages={pageCount} onPageChange={onPageChange} />
             </div>
           </div>
           {isLoading ? (
@@ -122,8 +128,8 @@ const HomePage: FC = () => {
           ) : (
             products && (
               <div className="grid gap-[30px] justify-center mx-auto w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {products.map((product) => (
-                  <MarketplaceCard product={product} key={product.id} />
+                {getPageItems()?.map((product) => (
+                  <MarketplaceCard product={product} key={product?.id} />
                 ))}
               </div>
             )
@@ -139,60 +145,35 @@ const HomePage: FC = () => {
           </Typography>
           <div className="flex items-center justify-between">
 
-          <div className="flex flex-wrap gap-2 text-muted-foreground text-sm">
-            <span>Popular Service Offered: </span>
-            <div className=" flex  items-center">
-              {" "}
-              <span>Assessment </span>{" "}
-              <SquareArrowOutUpRight className=" h-3 text-gray-400" />
+            <div className="flex flex-wrap gap-2 text-muted-foreground text-sm">
+              <span>Popular Service Offered: </span>
+              <div className=" flex  items-center">
+                {" "}
+                <span>Assessment </span>{" "}
+                <SquareArrowOutUpRight className=" h-3 text-gray-400" />
+              </div>
+              <div className=" flex  items-center">
+                {" "}
+                <span>Certification </span>{" "}
+                <SquareArrowOutUpRight className=" h-3 text-gray-400" />
+              </div>
+              <div className=" flex  items-center">
+                {" "}
+                <span>Feature Enhancement </span>{" "}
+                <SquareArrowOutUpRight className=" h-3 text-gray-400" />
+              </div>
             </div>
-            <div className=" flex  items-center">
-              {" "}
-              <span>Certification </span>{" "}
-              <SquareArrowOutUpRight className=" h-3 text-gray-400" />
+            {/* pagination */}
+            <div>
+              <PagePagination currentPage={featuredCurrentPage} totalPages={featuredPageCount} onPageChange={onFeaturedPageChange} />
             </div>
-            <div className=" flex  items-center">
-              {" "}
-              <span>Feature Enhancement </span>{" "}
-              <SquareArrowOutUpRight className=" h-3 text-gray-400" />
-            </div>
-          </div>
-          {/* pagination */}
-          <div>
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious href="#">
-                      <ChevronLeft className="h-4 w-4" />
-                    </PaginationPrevious>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#" isActive>
-                      2
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationNext href="#" />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-          </div>
           </div>
           {isLoadingForOSAP ? (
             <div>Loading...</div>
           ) : (
             productsForOSAP && (
               <div className="grid gap-[30px] justify-center mx-auto w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {productsForOSAP.map((product) => (
+                {getFeaturedPageItems()?.map((product) => (
                   <FeatureCard product={product} key={product.id} />
                 ))}
               </div>

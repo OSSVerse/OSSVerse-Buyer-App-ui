@@ -9,21 +9,15 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 
-import { ChevronLeft, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+
 import type { Item } from "@/services/marketplace-service";
 import { MarketplaceCard } from "@/components/common/marketplace-card";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useSearchParams } from "react-router-dom";
+import PagePagination from "@/components/common/page-pagination";
 
 const filterdata = {
   OSAP: [
@@ -103,14 +97,18 @@ const MarketplaceList = ({
     "Service Offered": [{ name: "All Service Offered", value: "all" }],
     "TAVOSS Version": [{ name: "All TAVOSS Version", value: "all" }],
   };
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const featuredCurrentPage = Number(searchParams.get("mpage")) || 1;
+
   const [activeFilters, setActiveFilters] = useState(initialFilters);
 
   const hasFilters = Object.keys(activeFilters)
-  .filter((item) =>
-    activeFilters[item as keyof typeof activeFilters].find(
-      (f) => f.value !== "all",
-    ),
-  ).length > 0
+    .filter((item) =>
+      activeFilters[item as keyof typeof activeFilters].find(
+        (f) => f.value !== "all",
+      ),
+    ).length > 0
 
   const handleFilterChange = (
     filter: string,
@@ -146,6 +144,17 @@ const MarketplaceList = ({
       setActiveFilters(newFilters);
     }
   };
+
+  const onFeaturedPageChange = (page: number) => {
+    searchParams.set("mpage", page.toString());
+    setSearchParams(searchParams);
+  };
+  const getFeaturedPageItems = products?.slice((featuredCurrentPage - 1) * 6, featuredCurrentPage * 6);
+
+
+  const featuredPageCount = Math.ceil(products ? products?.length / 6 : 0);
+
+
 
   return (
     <div className="flex flex-col gap-9">
@@ -263,50 +272,24 @@ const MarketplaceList = ({
             data-testid={"product-list"}
             className={cn(`
             grid gap-[30px] justify-center mx-auto w-full
-            ${
-              showFilter
+            ${showFilter
                 ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
                 : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            }
+              }
           `)}
           >
-            {products.map((product) => (
+            {getFeaturedPageItems?.map((product) => (
               <MarketplaceCard product={product} key={product.id} />
             ))}
           </div>
           <div className="sm:flex space-y-4 justify-between items-center w-full">
             <div className="flex items-center  gap-2 w-96">
-              <span className="text-xs ">Showing 1-20 of 100</span>{" "}
+              <span className="text-xs ">Showing {getFeaturedPageItems?.length * (featuredCurrentPage - 1) + 1} - {getFeaturedPageItems?.length * featuredCurrentPage} of {products?.length}</span>{" "}
               <Separator orientation="vertical" className="h-4 w-[3px]" />
-              <span className="text-xs ">10 per page</span>
+              <span className="text-xs ">6 per page</span>
             </div>
             <div>
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious href="#">
-                      <ChevronLeft className="h-4 w-4" />
-                    </PaginationPrevious>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#" isActive>
-                      2
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationNext href="#" />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
+              <PagePagination currentPage={featuredCurrentPage} totalPages={featuredPageCount} onPageChange={onFeaturedPageChange} />
             </div>
           </div>
         </div>
