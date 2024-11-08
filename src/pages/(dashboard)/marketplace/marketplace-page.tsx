@@ -9,7 +9,7 @@ import { H1 } from "@/components/ui/typography";
 import { ChevronDownIcon, Search } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import MarketplaceList from "../components/marketplace-list";
-import { useMarketPlaceProducts } from "@/services/marketplace-service";
+import { Item, useMarketPlaceProducts } from "@/services/marketplace-service";
 import { useState } from "react";
 import {
   DropdownMenu,
@@ -49,10 +49,15 @@ const TabItem = ({
 };
 
 const MarketPlacePage = ({ isHomePage = false }: { isHomePage?: boolean }) => {
+
+
   // const { data, isLoading } = useMarketPlaceProducts("", "OSS Project");
   // const { modalData, isLoading: isModalLoading } = useMarketPlaceProducts("", "OSS Model");
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const featuredCurrentPage = Number(searchParams.get("fpage")) || 1;
+
+
   const showFilter = searchParams.get("filter") || "";
   const activeTab = searchParams.get("q") || "";
   const selectedCategory = {
@@ -63,6 +68,7 @@ const MarketPlacePage = ({ isHomePage = false }: { isHomePage?: boolean }) => {
     "",
     selectedCategory[activeTab as keyof typeof selectedCategory] ?? "",
   );
+
 
   const onChange = (value: string) => {
     if (value === "") {
@@ -80,6 +86,7 @@ const MarketPlacePage = ({ isHomePage = false }: { isHomePage?: boolean }) => {
     }
     setSearchParams(searchParams);
   };
+
 
   const [isGrid, setIsGrid] = useState(false);
   return (
