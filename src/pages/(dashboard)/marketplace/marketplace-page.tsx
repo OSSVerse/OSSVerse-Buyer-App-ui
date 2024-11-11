@@ -9,7 +9,7 @@ import { H1 } from "@/components/ui/typography";
 import { ChevronDownIcon, Search } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import MarketplaceList from "../components/marketplace-list";
-import { Item, useMarketPlaceProducts } from "@/services/marketplace-service";
+import { useMarketPlaceProducts } from "@/services/marketplace-service";
 import { useState } from "react";
 import {
   DropdownMenu,
@@ -55,7 +55,6 @@ const MarketPlacePage = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   // const { modalData, isLoading: isModalLoading } = useMarketPlaceProducts("", "OSS Model");
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const featuredCurrentPage = Number(searchParams.get("fpage")) || 1;
 
 
   const showFilter = searchParams.get("filter") || "";

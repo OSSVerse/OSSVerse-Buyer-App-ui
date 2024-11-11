@@ -23,3 +23,7 @@
 .font-inter {
   font-family: "Inter", sans-serif;
 }
+
+.page-container {
+  @apply xl:px-[72px] xl:w-[1366px] mx-auto;
+}

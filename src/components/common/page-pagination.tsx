@@ -44,8 +44,7 @@ const PagePagination: React.FC<PaginationProps> = ({ currentPage, totalPages, on
             <Button data-testid="pagination-previous" variant="ghost" onClick={handlePrevious} disabled={currentPage === 1}>
                 <ChevronLeft className="h-4 w-4" />
             </Button>
-            {createPageArray().map((page, index) => (
-
+            {createPageArray().map((page) => (
                 <PaginationLink data-testid={`pagination-${page}`} key={page} onClick={() => typeof page === 'number' && onPageChange(page)} isActive={page === currentPage}
                     type="button"
                 >
