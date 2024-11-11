@@ -155,12 +155,8 @@ const MyOrdersPage = () => {
     if (data && filterSortPager && activeTab) {
       let d: FinalProduct[] = [];
       if (activeTab === "All") {
-
-        //@ts-ignore
         d = listData.flat();
       } else {
-        //@ts-ignore
-
         d = listData.filter((d) => d.state === activeTab);
       }
       const { currentData, finalTotalCount } = deriveData(
