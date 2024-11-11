@@ -43,7 +43,7 @@ ChartJS.register(
   Legend,
 );
 
-const StatsCard = ({
+export const StatsCard = ({
   title,
   value,
   icon,
@@ -117,7 +117,7 @@ const StatsCard = ({
 //   );
 // }
 
-const OrdersCard = () => {
+export const OrdersCard = () => {
   const getOrderCard = (
     title: string,
     value: number,
@@ -160,7 +160,7 @@ const OrdersCard = () => {
   );
 };
 
-const OrdersInProgressCard = () => {
+export const OrdersInProgressCard = () => {
   const orders = [
     {
       name: "AutoSync Project",
@@ -358,7 +358,7 @@ type CardType = {
   };
 };
 
-const CardComponent = ({
+export const CardComponent = ({
   title,
   value,
   subtitle,
