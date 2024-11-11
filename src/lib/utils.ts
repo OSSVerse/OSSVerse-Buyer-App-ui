@@ -10,7 +10,7 @@ import {
   type SortOrder,
   type VariantTypes,
 } from "./constant";
-import { Item } from "@/services/myorders-service";
+import type { Item } from "@/services/myorders-service";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

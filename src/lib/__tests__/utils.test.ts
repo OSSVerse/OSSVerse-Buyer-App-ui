@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { getSpanVariant, paginate, filterData, sortData, FinalProduct, deriveData, statusToVariantMap } from "../utils";
-import { SortOption, VariantTypes } from "../constant";
+import { getSpanVariant, paginate, filterData, sortData, type FinalProduct, deriveData, statusToVariantMap } from "../utils";
+import type { SortOption, VariantTypes } from "../constant";
 
 // get span variant
 describe("getSpanVariant", () => {

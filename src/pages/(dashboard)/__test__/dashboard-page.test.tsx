@@ -39,8 +39,6 @@ it('renders and interacts with the OrdersInProgressCard component', () => {
   fireEvent.click(button);
 });
 
-import { Line } from 'react-chartjs-2';
-
 it('renders CardComponent with a line chart', () => {
   const data = {
     labels: ['January', 'February', 'March'],
