@@ -1,6 +1,28 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import AnchorLists from "../anchor-list";
+import AnchorLists, {isLessThanCurrentAnchor} from "../anchor-list";
+
+describe('isLessThanCurrentAnchor', () => {
+  it('should return true when anchorIndex is less than currentAnchor', () => {
+    expect(isLessThanCurrentAnchor(2, 5)).toBe(true)
+  })
+
+  it('should return false when anchorIndex is equal to currentAnchor', () => {
+    expect(isLessThanCurrentAnchor(5, 5)).toBe(false)
+  })
+
+  it('should return false when anchorIndex is greater than currentAnchor', () => {
+    expect(isLessThanCurrentAnchor(7, 5)).toBe(false)
+  })
+
+  it('should return true for negative anchorIndex values less than currentAnchor', () => {
+    expect(isLessThanCurrentAnchor(-1, 0)).toBe(true)
+  })
+
+  it('should return false for negative anchorIndex values greater than currentAnchor', () => {
+    expect(isLessThanCurrentAnchor(0, -1)).toBe(false)
+  })
+})
 
 describe("AnchorLists Component", () => {
   const mockSetCurrentAnchor = vi.fn();

@@ -3,7 +3,6 @@ import { BrowserRouter } from 'react-router-dom';
 import MarketplaceList from '../marketplace-list';
 import type { Item } from '@/services/marketplace-service';
 import { describe, it, expect } from 'vitest';
-import { userEvent } from '@testing-library/user-event';
 
 const mockProducts: Item[] = [
     { id: '1', description: 'Description 1', price: { currency: 'INR', value: '100', maximum_value: '100' }, category_id: '1', sub_category_id: '1', code: '1', descriptor: { name: 'Product 1', images: [] }, longDescription: 'Long Description 1', totalPrice: 100, type: 'Product' },

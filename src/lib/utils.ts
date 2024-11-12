@@ -10,6 +10,7 @@ import {
   type SortOrder,
   type VariantTypes,
 } from "./constant";
+import type { Item } from "@/services/myorders-service";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -55,18 +56,7 @@ export const getSpanVariant = (status: string) => {
 export interface FinalProduct {
   state: string;
   id: string;
-  item: {
-    descriptor: { name: string };
-    price: { currency: string; value: string };
-    category_id: string;
-    productSubcategory1: string;
-    description: string;
-    longDescription: string;
-    quantity: {
-      count: number;
-      measure: { unit: string; value: number };
-    };
-  };
+  item: Item;
   created_at: string;
   dueDate: string;
   updated_at: string;
@@ -128,8 +118,11 @@ export const filterData = (
     let hasSearch = false;
     // if(d.price.value >= filters.price.from && d.price.value <= filters.price.to) filterPrice = true
     if (category_id.includes(d.item.category_id)) hasFilterCatId = true;
-    if (productSubcategory1.includes(d.item.productSubcategory1))
-      hasFilterProductSubCat1 = true;
+    if (Array.isArray(productSubcategory1) && typeof d.item.productSubcategory1 === 'string') {
+      if (productSubcategory1.includes(d.item.productSubcategory1 ?? '')) {
+        hasFilterProductSubCat1 = true;
+      }
+    }
     if (
       d.item.descriptor.name.toLowerCase().includes(search?.toLowerCase()) ||
       search === ""

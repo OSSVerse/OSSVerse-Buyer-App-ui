@@ -1,5 +1,5 @@
 import { render, fireEvent, screen, waitFor, act } from '@testing-library/react';
-import { describe, it, vi, expect, afterEach, beforeEach } from 'vitest';
+import { describe, it, vi, expect, beforeEach } from 'vitest';
 import Pager, { ShowPerPage } from '../pager';
 
 const mockSetFilterSortPager = vi.fn();
