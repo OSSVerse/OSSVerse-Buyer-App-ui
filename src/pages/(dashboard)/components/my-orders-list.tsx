@@ -13,13 +13,14 @@ import { Link } from "react-router-dom";
 import { Span } from "@/components/ui/span";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { type FinalProduct, cn, getSpanVariant } from "@/lib/utils";
+import { cn, getSpanVariant } from "@/lib/utils";
 import Pager from "@/components/common/pager";
 import type { IFilterSortPager } from "@/store/data-store";
 import FilterCol from "./filter-col";
+import type { Order } from "@/services/myorders-service";
 dayjs.extend(relativeTime);
 
-export const OrderCard = ({ order }: { order: FinalProduct }) => {
+export const OrderCard = ({ order }: { order: Order['orders'][0]['message']['responses'][0]['message']['order'] }) => {
   return (
     <Link to={`/dashboard/orders/detail/${order?.id ?? ""}`}>
       <Card className="max-w-full ld:max-w-[300px] sm:max-w-[280px] md:max-w-[290px] border rounded-lg overflow-hidden h-full flex flex-col">
@@ -38,7 +39,7 @@ export const OrderCard = ({ order }: { order: FinalProduct }) => {
               )} */}
             </Badge>
             <h3 className="text-lg font-semibold ">
-              {order.item.descriptor?.name}
+              {order.items[0].descriptor.name}
             </h3>
           </CardTitle>
         </CardHeader>
@@ -104,7 +105,7 @@ export const OrderListHeader = () => {
 export const OrderListItem = ({
   order,
 }: {
-  order: FinalProduct;
+  order: Order['orders'][0]['message']['responses'][0]['message']['order'];
 }) => {
   return (
     <Link to={`/dashboard/orders/detail/${order?.id}`} className="xl:w-full ">
@@ -127,7 +128,7 @@ export const OrderListItem = ({
             <div className="col-span-2">
               <div>
                 <h3 className="text-lg font-semibold ">
-                  {order.item.descriptor?.name}
+                  {order.items[0].descriptor.name}
                 </h3>
               </div>
               <div>Last update {dayjs(order?.updated_at).fromNow()}</div>
@@ -160,7 +161,7 @@ interface MyOrdersListProps {
   filterSortPager: IFilterSortPager;
   showFilter: boolean;
   showGrid: boolean;
-  orders: FinalProduct[];
+  orders: Order[] | undefined;
 }
 
 const MyOrdersList = ({
@@ -197,16 +198,16 @@ const MyOrdersList = ({
           >
             {!showGrid && <OrderListHeader />}
             {/* TODO: now the key use index which is redudunt because there is no unique thing for it  */}
-            {orders.map((order: FinalProduct, index: number) =>
+            {orders.map((order) =>
               showGrid ? (
                 <OrderCard
-                  order={order}
-                  key={order.item.descriptor.name + index}
+                  order={order.orders[0].message.responses[0].message.order}
+                  key={order.orders[0].message.responses[0].message.order.items[0].descriptor.name}
                 />
               ) : (
                 <OrderListItem
-                  order={order}
-                  key={order.item.descriptor.name + index}
+                  order={order.orders[0].message.responses[0].message.order}
+                  key={order.orders[0].message.responses[0].message.order.items[0].descriptor.name}
                 />
               ),
             )}

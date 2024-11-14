@@ -167,9 +167,8 @@ export const getMyOrders = async () => {
     );
 };
 
-export const useMyOrders = () => {
-    return useQuery({
-        queryKey: [api.myorders.get],
-        queryFn: getMyOrders,
-    });
-};
+export const useMyOrders = () => useQuery({
+    queryKey: [api.myorders.get],
+    queryFn: getMyOrders,
+    select: (data) => data.orders,
+});
