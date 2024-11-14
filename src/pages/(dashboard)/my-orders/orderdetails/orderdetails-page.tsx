@@ -81,6 +81,7 @@ const order = {
 };
 
 const OrderDetailsPage = () => {
+  console.log("OrderDetailsPage");
   const [currentAnchor, setCurrentAnchor] = useState(0);
   const [stages, setStages] = useState<StageItem[]>([
     {

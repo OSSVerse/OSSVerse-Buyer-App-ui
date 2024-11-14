@@ -22,7 +22,7 @@ dayjs.extend(relativeTime);
 
 export const OrderCard = ({ order }: { order: Order['orders'][0]['message']['responses'][0]['message']['order'] }) => {
   return (
-    <Link to={`/dashboard/orders/detail/${order?.id ?? ""}`}>
+    <Link to={`/dashboard/orders/detail/${encodeURIComponent(order?.id)}`}>
       <Card className="max-w-full ld:max-w-[300px] sm:max-w-[280px] md:max-w-[290px] border rounded-lg overflow-hidden h-full flex flex-col">
         <CardHeader className="pb-2">
           <CardTitle className="space-y-2">
@@ -108,7 +108,7 @@ export const OrderListItem = ({
   order: Order['orders'][0]['message']['responses'][0]['message']['order'];
 }) => {
   return (
-    <Link to={`/dashboard/orders/detail/${order?.id}`} className="xl:w-full ">
+    <Link to={`/dashboard/orders/detail/${encodeURIComponent(order?.id)}`} className="xl:w-full ">
       <Card className="sm:w-[50rem] md:w-[60rem] xl:w-full 2xl:w-[90rem] border rounded-lg">
         <CardContent className="text-sm space-y-2 p-4">
           <div className="grid grid-cols-8 gap-6 items-center">

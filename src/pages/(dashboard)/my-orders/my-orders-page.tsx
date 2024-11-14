@@ -166,7 +166,7 @@ const OrdersPage = ({ data }: { data: OrderResponse['orders'] }) => {
         setFilterSortPager((prev) => ({ ...prev, total: count }));
       });
     }
-  }, [data, setFilterSortPager, totalCount, tabsData]);
+  }, [data, setFilterSortPager, totalCount]);
 
   useEffect(() => {
     if (data && filterSortPager && activeTab) {
