@@ -10,6 +10,7 @@ import {
   type SortOrder,
   type VariantTypes,
 } from "./constant";
+import type { Item } from "@/services/myorders-service";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -67,6 +68,7 @@ export interface FinalProduct {
       measure: { unit: string; value: number };
     };
   };
+
   created_at: string;
   dueDate: string;
   updated_at: string;
@@ -128,8 +130,10 @@ export const filterData = (
     let hasSearch = false;
     // if(d.price.value >= filters.price.from && d.price.value <= filters.price.to) filterPrice = true
     if (category_id.includes(d.item.category_id)) hasFilterCatId = true;
+
     if (productSubcategory1.includes(d.item.productSubcategory1))
       hasFilterProductSubCat1 = true;
+
     if (
       d.item.descriptor.name.toLowerCase().includes(search?.toLowerCase()) ||
       search === ""

@@ -1,10 +1,12 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within, waitFor } from "@testing-library/react";
 import NavBar from "../nav-bar";
 import useAuthStore from "@/store/auth-store";
 import { vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
+import userEvent from '@testing-library/user-event'
+import { useModal } from "@/store/modal-store";
 
-const onOpen = vi.fn();
+vi.mock("@/store/modal-store"); // Mock useModal
 // Mocking auth-store to simulate authenticated state changes
 vi.mock("@/store/auth-store", () => {
   return {
@@ -22,6 +24,11 @@ vi.mock("@/store/auth-store", () => {
 });
 
 describe("NavBar", () => {
+  beforeEach(() => {
+    (useModal as vi.Mock).mockReturnValue({
+      onOpen: vi.fn(), // Mock onOpen function
+    });
+  });
   it("renders LoginNavbar when openLoginNavbar is true", () => {
     useAuthStore.mockReturnValue({
       isAuthenticated: false,
@@ -44,14 +51,16 @@ describe("NavBar", () => {
   });
 
   it("shows user menu with logout confirmation when authenticated", async () => {
+    const { onOpen } = useModal();
     useAuthStore.mockReturnValue({
       isAuthenticated: true,
       logout: vi.fn(),
     });
+    const user = userEvent.setup();
 
-    const { container } = render(
+    render(
       <MemoryRouter>
-        <NavBar onOpen={onOpen} />
+        <NavBar />
       </MemoryRouter>,
     );
 
@@ -60,16 +69,17 @@ describe("NavBar", () => {
     });
     expect(toggleUserMenu).toBeInTheDocument();
 
-    fireEvent.click(toggleUserMenu);
+    await user.click(toggleUserMenu);
+    const menu = screen.getByRole('menu');
 
-    // const logoutItem = await container.findByText(/logout/i);
-    // expect(logoutItem).toBeInTheDocument();
+    const logoutItem = await within(menu).getByText(/logout/i);
+    expect(logoutItem).toBeInTheDocument();
 
-    // fireEvent.click(loginBtn);
+    await user.click(logoutItem);
 
-    // await waitFor(() => {
-    //   expect(onOpen).toHaveBeenCalledWith("confirmationDialog", expect.any(Object));
-    // });
+    await waitFor(() => {
+      expect(onOpen).toHaveBeenCalledWith("confirmationDialog", expect.any(Object));
+    });
   });
 
   it("shows login options when not authenticated", () => {

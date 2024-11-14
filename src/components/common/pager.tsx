@@ -61,6 +61,7 @@ const Pager = ({ setFilterSortPager, filterSortPager }: PagerProps) => {
                         <PaginationItem>
                             <PaginationPrevious
                                 onClick={() => handlePreviousNextPage("prev")}
+                                disabled={page === 1}
                             >
                                 <ChevronLeft className="h-4 w-4" />
                             </PaginationPrevious>
@@ -78,6 +79,7 @@ const Pager = ({ setFilterSortPager, filterSortPager }: PagerProps) => {
                         <PaginationItem>
                             <PaginationNext
                                 onClick={() => handlePreviousNextPage("next")}
+                                disabled={page === pagers}
                             />
                         </PaginationItem>
                     </PaginationContent>

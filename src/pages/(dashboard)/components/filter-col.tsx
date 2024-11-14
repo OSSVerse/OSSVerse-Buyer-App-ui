@@ -16,6 +16,18 @@ import {
 import type { IFilterSortPager } from "@/store/data-store";
 import { type ChangeEvent, useState } from "react";
 
+
+export const setFilterKeyData = (filterKey: FilterKey) => {
+    switch (filterKey) {
+        case "category_id":
+            return DEFAULT_CATEGORY_IDS;
+        case "productSubcategory1":
+            return DEFAULT_PRODUCT_SUB_CATEOGRY_1;
+        default:
+            throw new Error("No such filter Key, please correct it");
+    }
+};
+
 interface IFilterCol {
     filterSortPager: IFilterSortPager;
     setFilterSortPager: React.Dispatch<React.SetStateAction<IFilterSortPager>>;
@@ -34,6 +46,7 @@ const FilterCol = ({ filterSortPager, setFilterSortPager }: IFilterCol) => {
         localTypeCategoryIdFilter.length !== typeCategoryIdFilter.length ||
         productSubCategory1Filter.length !== localProductSubCategory1Filter.length;
 
+
     const setFilterKeyData = (filterKey: FilterKey) => {
         switch (filterKey) {
             case "category_id":
@@ -44,6 +57,7 @@ const FilterCol = ({ filterSortPager, setFilterSortPager }: IFilterCol) => {
                 throw new Error("No such filter Key, please correct it");
         }
     };
+
     const handleFilter = <T,>(
         checked: boolean,
         filter: T | "All",
@@ -242,6 +256,9 @@ export const FilterCheckBox = <T,>({
         <div className="flex flex-col gap-2">
             <div className="flex items-center p-1 gap-2">
                 <Checkbox
+
+                    data-testid={String(all_title)}
+
                     id={all_title}
                     onCheckedChange={(checked: boolean) => handleFilter(checked, "All")}
                     checked={localData.length === filterData.length}
@@ -256,6 +273,9 @@ export const FilterCheckBox = <T,>({
             {localData.map((filter: T) => (
                 <div className="flex items-center p-1 gap-2" key={String(filter)}>
                     <Checkbox
+
+                        data-testid={String(filter)}
+
                         onCheckedChange={(checked: boolean) =>
                             handleFilter(checked, filter)
                         }

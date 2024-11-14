@@ -149,17 +149,21 @@ const MyOrdersPage = () => {
         setFilterSortPager((prev) => ({ ...prev, total: count }));
       });
     }
-  }, [data, setFilterSortPager, totalCount, tabsData]);
+
+  }, [data, setFilterSortPager, totalCount]);
+
 
   useEffect(() => {
     if (data && filterSortPager && activeTab) {
       let d: FinalProduct[] = [];
       if (activeTab === "All") {
 
+
         //@ts-ignore
         d = listData.flat();
       } else {
         //@ts-ignore
+
 
         d = listData.filter((d) => d.state === activeTab);
       }
@@ -181,7 +185,9 @@ const MyOrdersPage = () => {
       }
       setCurrentData(currentData);
     }
+
   }, [data, filterSortPager, activeTab, listData]);
+
 
   return (
     <div
@@ -253,12 +259,16 @@ const MyOrdersPage = () => {
           />
         </div>
       </div>
-      <div className="page-container">
+
+      <div className="xl:w-[1222px] mx-auto">
+n
         {currentData && (
           <MyOrdersList
             setFilterSortPager={setFilterSortPager}
             filterSortPager={filterSortPager}
-            orders={currentData}
+
+            orders={currentData || []}
+
             showFilter={!!showFilter}
             showGrid={!!isGrid}
           />
