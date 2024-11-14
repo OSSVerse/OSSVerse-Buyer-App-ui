@@ -61,7 +61,6 @@ const MyOrdersPage = () => {
   useEffect(() => {
     if (data) {
       setOrders(data);
-      console.log(data, "=-=-=-=--=sad asdasd-=-=-");
     }
   }, [data]);
 
@@ -85,7 +84,6 @@ const OrdersPage = ({ data }: { data: OrderResponse['orders'] }) => {
   const [currentData, setCurrentData] = useState<FinalProduct[] | null>(null);
   const [isGrid, setIsGrid] = useState(true);
   const showFilter = searchParams.get("filter") || "";
-
   const onChange = (value: string) => {
     const total = tabsDataArr.find((t) => t.state === value)?.count || 0;
     setFilterSortPager({
