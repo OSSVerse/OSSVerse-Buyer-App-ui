@@ -1,8 +1,8 @@
-import * as React from "react";
+import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { CheckIcon } from "lucide-react";
-import { cva, VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 const stageVariants = cva("", {
   variants: {

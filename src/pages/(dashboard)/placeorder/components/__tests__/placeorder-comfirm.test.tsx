@@ -22,6 +22,7 @@ describe("PlaceOrderConfirm Component", () => {
 
     expect(screen.getByText("Selected Services")).toBeInTheDocument();
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     mockData.services.forEach((service) => {
       expect(screen.getByText(service.name)).toBeInTheDocument();
     });

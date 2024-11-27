@@ -35,14 +35,13 @@ export const useMyOrdersStore = create<State & Action>((set) => ({
             order: newOrder,
           },
         };
-      } else {
-        return {
-          filters: {
-            ...state.filters,
-            ...newFilters,
-            order: -1,
-          },
-        };
       }
+      return {
+        filters: {
+          ...state.filters,
+          ...newFilters,
+          order: -1,
+        },
+      };
     }),
 }));

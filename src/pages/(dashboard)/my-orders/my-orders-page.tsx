@@ -158,6 +158,7 @@ const OrdersPage = ({ data }: { data: OrderResponse['orders'] }) => {
     ...tabsData,
   ];
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (data) {
       setFilterSortPager((prev) => ({ ...prev, total: totalCount }));
@@ -168,6 +169,7 @@ const OrdersPage = ({ data }: { data: OrderResponse['orders'] }) => {
     }
   }, [data, setFilterSortPager, totalCount]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (data && filterSortPager && activeTab) {
       let d: FinalProduct[] = [];

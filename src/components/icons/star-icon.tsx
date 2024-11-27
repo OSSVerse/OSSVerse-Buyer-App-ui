@@ -1,5 +1,6 @@
 const StarIcon = ({ ...props }) => {
   return (
+    // biome-ignore lint/a11y/noSvgWithoutTitle: <explanation>
     <svg
       height="20"
       width="20"

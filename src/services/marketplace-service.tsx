@@ -10,6 +10,7 @@ export interface ProductListItem {
   descriptor: Descriptor
   items: Item[]
   fulfillments: Fulfillment[]
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   tags: any[]
   "@ondc/org/fssai_license_no": string
   type: string
@@ -20,6 +21,7 @@ export interface Descriptor {
   name: string
   short_desc: string
   long_desc: string
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   images: any[]
 }
 
@@ -46,6 +48,7 @@ export interface Descriptor2 {
   name: string
   short_desc?: string
   long_desc?: string
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   images: any[]
 }
 

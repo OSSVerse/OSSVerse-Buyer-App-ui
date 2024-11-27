@@ -41,6 +41,7 @@ describe("SortMenu Component", () => {
     const sortedText = "Newest";
     fireEvent.click(screen.getByRole("button", { name: /newest/i }));
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     SORT_MENUS.forEach((menu) => {
       if (menu === sortedText) {
         expect(screen.getAllByText(menu)).toHaveLength(2);

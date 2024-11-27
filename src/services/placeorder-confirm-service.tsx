@@ -35,6 +35,7 @@ export type Order = {
 };
 
 // TODO: the swagger/postman example data does not show the data type, any for placeholder
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export type Fulfillment = any;
 
 export type Payment = {
@@ -147,6 +148,7 @@ export type QuoteMessageBodyItem = {
 };
 
 // TODO: the swagger/postman example data does not show the data type, any for placeholder
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export type QuoteMessageBodyFulfillment = any;
 export type QuoteMessageBodyBilling = {
   name: string;

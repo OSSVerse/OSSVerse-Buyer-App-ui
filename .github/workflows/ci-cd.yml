@@ -1,0 +1,54 @@
+name: CI/CD Pipeline
+
+on:
+  push: 
+    branches:
+      - 'develop'
+      - 'main'
+  pull_request:
+    branches:
+      - 'develop'
+      - 'main'
+
+jobs:
+   build:
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      # Checkout code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Set up Node.js (latest stable version)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      # Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: pnpm install
+
+      # Lint the code
+      - name: Run Linter
+        run: pnpm lint
+
+      # Run tests with coverage
+      - name: Run Tests
+        run: pnpm coverage
+
+      # Build the project
+      - name: Build Project
+        run: pnpm build
+
+      - name: Upload Coverage to Codecov
+        if: matrix.os == 'ubuntu-latest'
+        uses: codecov/codecov-action@v4

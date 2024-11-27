@@ -5,12 +5,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Typography from "@/components/ui/typography";
 import { useMarketPlaceProducts } from "@/services/marketplace-service";
 import type { FC } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import MarketPlacePage from "../(dashboard)/marketplace/marketplace-page";
-import { ExternalLink, SquareArrowOutUpRight } from "lucide-react";
+import { SquareArrowOutUpRight } from "lucide-react";
 import LatestNews from "./components/LatestNews";
 import { FeatureCard } from "@/components/common/feature-card";
-import { ROUTE_PATH } from "@/routes/route-path";
 import { PRODUCT_TYPE } from "@/lib/constant";
 import PagePagination from "@/components/common/page-pagination";
 const TabItem = ({

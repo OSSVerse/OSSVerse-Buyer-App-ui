@@ -204,6 +204,7 @@ export const OrdersInProgressCard = () => {
         <ul>
           {orders.map((order, i) => (
             <li
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               key={order.name + i}
               className="flex justify-between items-center border-b last:border-b-0 py-2"
             >
@@ -215,6 +216,7 @@ export const OrdersInProgressCard = () => {
                   <Typography className="text-sm">{order.name}</Typography>
                   <Typography muted className="flex items-center">
                     {order.icons.map((icon) => (
+                      // biome-ignore lint/correctness/useJsxKeyInIterable: <explanation>
                       <Icon
                         icon={icon}
                         className="text-stone-500 me-1"
@@ -293,6 +295,7 @@ const RequestsInProgress = () => {
                   <Typography className="text-sm">{request.name}</Typography>
                   <Typography muted className="flex items-center">
                     {request.icons.map((icon) => (
+                      // biome-ignore lint/correctness/useJsxKeyInIterable: <explanation>
                       <Icon
                         icon={icon}
                         className="text-stone-500 me-1"

@@ -58,6 +58,7 @@ export type Order = {
 };
 
 // TODO: the swagger/postman example data does not show the data type, any for placeholder
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export type Fulfillment = any;
 export type Payment = {
   "@ondc/org/buyer_app_finder_fee_type": string;
@@ -110,6 +111,7 @@ export type State = {
 };
 
 // TODO: the swagger/postman example data does not show the data type, any for placeholder
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export type Providerlocation = any;
 export type Provider = {
   id: string;

@@ -82,6 +82,7 @@ export type Available = {
 };
 
 // TODO: the swagger/postman example data does not show the data type, any for placeholder
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export type Ondcorgitemquantity = any;
 
 export type Price = {
@@ -111,6 +112,7 @@ export type Descriptor = {
 
 // body interface
 // TODO: the swagger/postman example data does not show the data type, any for placeholder
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export type QuoteMessageBodyFulfillment = any;
 
 export type Provider = {

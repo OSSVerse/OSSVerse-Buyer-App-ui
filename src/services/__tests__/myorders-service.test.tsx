@@ -32,6 +32,7 @@ describe("useMyOrders hook", () => {
         };
 
         // Mock the API response
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         (httpService.get as any).mockResolvedValueOnce({ data: mockData });
 
         const { result, waitFor } = renderHook(() => useMyOrders(), { wrapper });

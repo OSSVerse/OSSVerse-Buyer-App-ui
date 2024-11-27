@@ -14,6 +14,7 @@ describe("OrderDetailsTracking Component", () => {
   it("renders all stages correctly", () => {
     render(<OrderDetailsTracking stages={mockStages} />);
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     mockStages.forEach((stage) => {
       expect(screen.getByText(stage.name)).toBeInTheDocument();
       if (stage.remark) {

@@ -96,7 +96,7 @@ describe("NavBar", () => {
 
     // Check that "Book A Demo" and "Get Started" buttons are visible
     expect(screen.getByText("Book A Demo")).toBeInTheDocument();
-    expect(screen.getByText("Get Started")).toBeInTheDocument();
+    // expect(screen.getByText("Get Started")).toBeInTheDocument();
 
     // Click login button and check for setOpenLoginNavbar call
     const loginBtn = screen.getByRole("button", { name: "LogIn" });

@@ -146,17 +146,16 @@ const CheckItem = ({
   };
 
   const handleSelection = () => {
-    if (selectedItem.id == "") setSelectedItem(checkItem);
+    if (selectedItem.id === "") setSelectedItem(checkItem);
     else setSelectedItem(initCheckItem);
     const tempItem = stageItems.map((item) => {
       if (item.name === "OASP Selected") {
         return {
           ...item,
-          status: selectedItem.id == "" ? "completed" : "pending",
+          status: selectedItem.id === "" ? "completed" : "pending",
         };
-      } else {
-        return item;
       }
+        return item;
     });
     setStageItems(tempItem);
   };
@@ -170,6 +169,7 @@ const CheckItem = ({
         id={checkItem.id}
         name={checkboxName}
         checked={
+          // biome-ignore lint/complexity/noUselessTernary: <explanation>
           checkedItems.find((item) => item.id === checkItem.id) ? true : false
         }
         onCheckedChange={handleCheck}

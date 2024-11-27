@@ -41,6 +41,7 @@ describe("AnchorLists Component", () => {
       />,
     );
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     anchroLists.forEach((text) => {
       expect(screen.getByText(text)).toBeInTheDocument();
     });
