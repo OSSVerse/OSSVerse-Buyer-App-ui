@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster"
 
 const rootElement = document.getElementById("root");
 const queryClient = new QueryClient();
+
 if (rootElement) {
   createRoot(rootElement).render(
     <StrictMode>
