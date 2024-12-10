@@ -15,7 +15,7 @@ export interface IInitialSearchFilterPagination {
 }
 
 // TODO: this should be cal from response data
-export type CategoryId = "OSS Project" | "ML Model";
+export type CategoryId = string;
 // export type ProductSubcategory1 = 'TAVOSS Version & Certification Service' | 'Assurance & Assessment Service'
 
 export interface IInitialFilter {
@@ -27,10 +27,6 @@ export interface IInitialFilter {
     productSubcategory1: string[];
     provider?: string[];
 }
-
-
-
-
 
 export interface IFilterSortPager
     extends IInitialFilter,

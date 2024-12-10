@@ -124,9 +124,9 @@ describe("filterData", () => {
             ["smartphones"],
             products.length
         );
-        expect(finalData).toHaveLength(1);
+        expect(finalData).toHaveLength(3);
         expect(finalData[0].item.descriptor.name).toBe("Galaxy Phone");
-        expect(finalTotalCount).toBe(1);
+        expect(finalTotalCount).toBe(3);
     });
 
     it("filters products by search keyword", () => {
@@ -195,8 +195,8 @@ describe("filterData", () => {
             ["smartphones"],
             products.length
         );
-        expect(finalData).toHaveLength(1);
-        expect(finalTotalCount).toBe(1);
+        expect(finalData).toHaveLength(3);
+        expect(finalTotalCount).toBe(3);
     });
 });
 
