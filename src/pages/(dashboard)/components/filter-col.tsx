@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 import {
     DEFAULT_CATEGORY_IDS,
     DEFAULT_PRODUCT_SUB_CATEOGRY_1,
+    LOCAL_DEFAULT_CATEGORY_IDS,
+    LOCAL_DEFAULT_PRODUCT_SUB_CATEOGRY_1,
     type FilterKey,
 } from "@/lib/constant";
 import type { IFilterSortPager } from "@/store/data-store";
@@ -37,12 +39,12 @@ const FilterCol = ({ filterSortPager, setFilterSortPager }: IFilterCol) => {
     const productSubCategory1Filter = [...productSubcategory1];
     const [searchTerm, setSearchTerm] = useState("");
     const [localTypeCategoryIdFilter, _] =
-        useState(DEFAULT_CATEGORY_IDS);
+        useState(LOCAL_DEFAULT_CATEGORY_IDS);
     const [localProductSubCategory1Filter, setLocalProductSubCategory1Filter] =
-        useState(DEFAULT_PRODUCT_SUB_CATEOGRY_1);
+        useState(LOCAL_DEFAULT_PRODUCT_SUB_CATEOGRY_1);
     const hasFilter =
-        localTypeCategoryIdFilter.length !== typeCategoryIdFilter.length ||
-        productSubCategory1Filter.length !== localProductSubCategory1Filter.length;
+        typeCategoryIdFilter.length !== 0 ||
+        productSubCategory1Filter.length !== 0;
 
     const handleFilter = <T,>(
         checked: boolean,
@@ -86,82 +88,22 @@ const FilterCol = ({ filterSortPager, setFilterSortPager }: IFilterCol) => {
                 }));
             }
         }
-        // if(filter !== 'All') {
-        //   if(checked) {
-
-        //     // if current 'All' is checked, then click such filter will only show this filter item to check
-        //     if(filterData.length === localData.length) {
-
-        //       setFilterSortPager((prev) => ({
-        //         ...prev,
-        //         [filterKey]: [filter]
-        //       }))
-        //     }
-        //     // if current 'All' is not checked, then means, not all items are checked, then we just push the click filter
-        //     if(!filterData.includes(filter)) {
-        //       setFilterSortPager((prev) => ({
-        //         ...prev,
-        //         [filterKey]: [...filterData, filter]
-        //       }))
-        //     }
-        //   }
-
-        //   // if we uncheck, then filter it
-        //   if(!checked) {
-
-        //     setFilterSortPager((prev) => ({
-        //       ...prev,
-        //       [filterKey]: [...filterData.filter(d=> d !== filter)]
-        //     }))
-        //   }
-        // } else {
-        //   // if we are clicking 'All'
-        //   // if checked it
-        //   if(checked) {
-
-        //     setFilterSortPager((prev) => ({
-        //       ...prev,
-        //       [filterKey]: setFilterKeyData(filterKey)
-        //     }))
-        //   }
-        //   if(!checked) {
-
-        //     setFilterSortPager((prev) => ({
-        //       ...prev,
-        //       [filterKey]: []
-        //     }))
-        //   }
-
-        // const { finalData, totalCount } = filterDataUtils(
-        //   products,
-        //   price.from,
-        //   price.to,
-        //   category_id,
-        //   productSubcategory1
-        // );
     };
 
     const handleRestFilter = () => {
         setFilterSortPager((prev) => ({
             ...prev,
-            category_id: DEFAULT_CATEGORY_IDS,
-            productSubcategory1: DEFAULT_PRODUCT_SUB_CATEOGRY_1,
+            category_id: [],
+            productSubcategory1: [],
         }));
         setSearchTerm("");
 
-        setLocalProductSubCategory1Filter(DEFAULT_PRODUCT_SUB_CATEOGRY_1);
+        setLocalProductSubCategory1Filter(localProductSubCategory1Filter);
     };
 
     const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
         const term = event.target.value.trim();
         setSearchTerm(term);
-
-        // if (term) {
-        //   const results = DEFAULT_PRODUCT_SUB_CATEOGRY_1.filter(item => item.toLowerCase().includes(term.toLowerCase()));
-        //   setLocalProductSubCategory1Filter(results);
-        // } else {
-        //   setLocalProductSubCategory1Filter(DEFAULT_PRODUCT_SUB_CATEOGRY_1);
-        // }
     };
     return (
         <div className="w-[283px] xl:w-[380px] flex flex-col gap-3">
@@ -213,7 +155,9 @@ const FilterCol = ({ filterSortPager, setFilterSortPager }: IFilterCol) => {
                                 "productSubcategory1",
                             )
                         }
-                        localData={localProductSubCategory1Filter}
+                        localData={localProductSubCategory1Filter.filter((item) =>
+                            item.toString().toLowerCase().includes(searchTerm.toLowerCase())
+                        )}
                         filterData={productSubCategory1Filter}
                         searchTerm={searchTerm}
                     />
@@ -245,7 +189,8 @@ export const FilterCheckBox = <T,>({
                     data-testid={String(all_title)}
                     id={all_title}
                     onCheckedChange={(checked: boolean) => handleFilter(checked, "All")}
-                    checked={localData.length === filterData.length}
+                    checked={filterData.length === 0}
+                    disabled={true}
                 />
                 <label
                     htmlFor={all_title}

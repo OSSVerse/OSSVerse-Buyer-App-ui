@@ -43,7 +43,7 @@ const SortMenu = ({ setFilterSortPager, filterSortPager }: SortMenuProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button>
+        <Button disabled={true}>
           {localSort} <Icon icon="chevron-down" className="ml-2" />
         </Button>
       </PopoverTrigger>

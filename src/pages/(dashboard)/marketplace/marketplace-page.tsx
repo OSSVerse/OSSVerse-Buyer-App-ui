@@ -157,7 +157,7 @@ const MarketPlacePage = ({ isHomePage = false }: { isHomePage?: boolean }) => {
           <Button onClick={() => onFilterChange(showFilter)}>Filter</Button>
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <Button>
+              <Button disabled={true}>
                 Newest
                 <ChevronDownIcon className="h-5 w-5 ml-1" />
               </Button>

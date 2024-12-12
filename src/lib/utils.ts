@@ -124,11 +124,12 @@ export const filterData = (
       }
     }
     if (
-      d.item.descriptor.name.toLowerCase().includes(search?.toLowerCase()) ||
-      search === ""
+      d.item.descriptor.name.toLowerCase().includes(search?.toLowerCase()) && search.trim().length !== 0
     )
       hasSearch = true;
-    return hasFilterCatId && hasFilterProductSubCat1 && hasSearch;
+    if (hasSearch) return hasSearch
+    if (category_id.length === 0 && productSubcategory1.length === 0 && search.trim().length === 0) return true;
+    return (hasFilterCatId || hasFilterProductSubCat1) && search.trim().length === 0;
   });
 
   // filter need to update the total

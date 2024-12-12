@@ -234,7 +234,7 @@ export const OrdersInProgressCard = () => {
             </li>
           ))}
         </ul>
-        <Button className="mt-4">View All</Button>
+        <Button disabled={true} className="mt-4">View All</Button>
       </CardContent>
     </Card>
   );
@@ -313,7 +313,7 @@ const RequestsInProgress = () => {
             </li>
           ))}
         </ul>
-        <Button className="mt-4">View All</Button>
+        <Button disabled={true} className="mt-4">View All</Button>
       </CardContent>
     </Card>
   );
@@ -432,7 +432,7 @@ const DashboardPage = () => {
             icon={
               <Icon icon={"default"} size="large" className="text-stone-500" />
             }
-            footer={<Button>Get Certified as OASP</Button>}
+            footer={<Button disabled={true}>Get Certified as OASP</Button>}
           />
         </div>
         <div className="col-span-10 xl:col-span-4">

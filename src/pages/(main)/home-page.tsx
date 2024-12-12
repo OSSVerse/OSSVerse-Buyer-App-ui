@@ -184,7 +184,7 @@ const HomePage: FC = () => {
             )
           )}
           <div className=" mt-6">
-            <Button>Explore Open Source Service Providers (OASP)</Button>
+            <Button disabled={true}>Explore Open Source Service Providers (OASP)</Button>
           </div>
         </div>
         <MarketPlacePage isHomePage={true} />
