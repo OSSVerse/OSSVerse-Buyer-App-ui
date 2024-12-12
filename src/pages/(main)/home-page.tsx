@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Typography from "@/components/ui/typography";
 import { useMarketPlaceProducts } from "@/services/marketplace-service";
 import type { FC } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import MarketPlacePage from "../(dashboard)/marketplace/marketplace-page";
 import { SquareArrowOutUpRight } from "lucide-react";
 import LatestNews from "./components/LatestNews";
