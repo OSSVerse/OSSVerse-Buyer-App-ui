@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { httpService } from "./http-service";
 import { api } from "./apis";
-import { VITE_BAP_ID, VITE_BPP_ID } from "./env";
-
-
+import { VITE_BAP_ID } from "./env";
 
 export interface ProductListItem {
   totalPrice: number
@@ -171,8 +169,6 @@ const getData = (searchString: string, categoryName: string) => ({
     action: "search",
     version: "1.1.0",
     transaction_id: "ead489b8-81de-49a4-baf6-8d8de7eabf32",
-    bpp_id: VITE_BPP_ID,
-    bpp_uri: `http://${VITE_BPP_ID}`,
     bap_id: VITE_BAP_ID,
     bap_uri: `http://${VITE_BAP_ID}`,
     message_id: "1d07c819-695c-44ab-bd47-c21678a6ba4e",
