@@ -76,7 +76,6 @@ const PlaceOrderPage = () => {
     isPending,
   } = usePlaceOrderQuote();
   const [selectedServices, setSelectedServices] = useState<ICheckItem[]>([]);
-
   useEffect(() => {
     if (products && id) {
       mutateAsync({
@@ -89,13 +88,11 @@ const PlaceOrderPage = () => {
       });
     }
   }, [mutateAsync, products, id, selectedServices]);
-
   useEffect(() => {
     if (products) {
       setSelectedServices(products[0]?.services ?? []);
     }
   }, [products]);
-
   return (
     <div className="page-root flex flex-col gap-7">
       <AppBreadCrumb data={breadcrumb} />
@@ -213,6 +210,7 @@ const PlaceOrderPage = () => {
               items={products[0]?.services ?? []}
               id={products?.[0]?.provider?.id ?? ""}
               title={products?.[0]?.descriptor?.name ?? ""}
+              context={products?.[0]?.context}
               isGetQuotePending={isPending}
             />
           )}

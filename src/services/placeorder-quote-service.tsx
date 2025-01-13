@@ -128,20 +128,23 @@ export const getData = (
   items: Item[],
   fulfillment: QuoteMessageBodyFulfillment,
   context: PlaceOrderQuoteContext
-) => ({
-  selectRequestDto: [
-    {
-      context,
-      message: {
-        order: {
-          provider,
-          items,
-          fulfillment,
+) => {
+  context.action = 'select';
+  return {
+    selectRequestDto: [
+      {
+        context,
+        message: {
+          order: {
+            provider,
+            items,
+            fulfillment,
+          },
         },
       },
-    },
-  ],
-});
+    ],
+  }
+};
 
 export const getPlaceOrderQuote = async (
   provider: Provider,

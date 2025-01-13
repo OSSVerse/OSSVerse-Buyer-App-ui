@@ -113,7 +113,7 @@ const MyOrdersList = ({ setFilterSortPager, filterSortPager, showFilter, showGri
       <div className="w-full flex gap-[30px] items-start">
         {showFilter && <FilterCol setFilterSortPager={setFilterSortPager} filterSortPager={filterSortPager} />}
         <div className="space-y-4 w-full">
-        <div
+          <div
             className={cn(`
             ${!showGrid
                 ? "flex flex-col gap-4 w-full"

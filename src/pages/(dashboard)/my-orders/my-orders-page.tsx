@@ -72,20 +72,25 @@ const prepareTabsData = (data: FinalProduct[] | null) => {
 
 const prepareListData = (data: OrderResponse["orders"]) => {
   return data?.map((order) => {
-    const { items, id, updated_at, created_at, state } =
-      order.orders[0].message.responses[0].message.order;
-    return items.map((item) => {
-      return {
-        item,
-        id,
-        updated_at,
-        created_at,
-        state,
-        dueDate: "2024-11-09T02:51:23.997Z",
-      };
-    });
+    const orderMessage = order.orders[0]?.message.responses[0]?.message.order;
+    if (orderMessage) {
+      const { items, id, updated_at, created_at, state } = orderMessage;
+      return items.map((item) => {
+        return {
+          item,
+          id,
+          updated_at,
+          created_at,
+          state,
+          dueDate: "2024-11-09T02:51:23.997Z",
+        };
+      });
+    }
+    // Return an empty array if no valid orderMessage is found
+    return [];
   }) || [];
-}
+};
+
 
 const OrdersPage = ({ data }: { data: OrderResponse['orders'] }) => {
   const [searchParams, setSearchParams] = useSearchParams();

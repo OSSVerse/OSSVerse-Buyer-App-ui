@@ -49,13 +49,11 @@ const HomePage: FC = () => {
     setSearchParams(searchParams);
   };
 
-
   const getPageItems = () => {
     return products?.slice((currentPage - 1) * 4, currentPage * 4);
   };
 
   const pageCount = Math.ceil(products ? products?.length / 4 : 0);
-
 
   const getFeaturedPageItems = () => {
     return productsForOSAP?.slice((featuredCurrentPage - 1) * 4, featuredCurrentPage * 4);
@@ -67,8 +65,6 @@ const HomePage: FC = () => {
     searchParams.set("fpage", page.toString());
     setSearchParams(searchParams);
   };
-
-
 
   const onChange = (value: string) => {
     if (value === "") {
