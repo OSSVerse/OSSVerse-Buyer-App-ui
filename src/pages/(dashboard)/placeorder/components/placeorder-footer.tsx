@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Item } from "@/services/placeorder-quote-service";
 import type { ICheckItem } from "@/components/common/check-item";
+import type { CatalogContext } from "@/services/marketplace-service";
 interface FooterProps {
   title: string;
   id: string;
@@ -21,10 +22,11 @@ interface FooterProps {
   selectedServices: ICheckItem[];
   total_payment_amount: number | string;
   isGetQuotePending: boolean;
+  context: CatalogContext
 }
 
 
-const Footer = ({ title, id, items, selectedServices, total_payment_amount, isGetQuotePending }: FooterProps) => {
+const Footer = ({ title, id, items, selectedServices, total_payment_amount, isGetQuotePending, context }: FooterProps) => {
   // Place Order-Confirmation
   const { onOpen, setLoading, onClose } = useModal();
   const { isPending, mutateAsync } = usePlaceOrderInit(
@@ -45,9 +47,9 @@ const Footer = ({ title, id, items, selectedServices, total_payment_amount, isGe
       provider: {
         id: id,
       },
+      context
     }
   )
-
   const { mutateAsync: confirmMutateAsync, isPending: isConfirmPending } = usePlaceOrderConfirm();
   useEffect(() => {
     setLoading(isConfirmPending);
@@ -80,6 +82,7 @@ const Footer = ({ title, id, items, selectedServices, total_payment_amount, isGe
                     items: items.map((item) => ({ id: item.id })),
                     billing: res[0]?.message?.catalogs?.responses[0]?.message.order.billing,
                     fulfillments: [],
+                    context
                   });
                   if (response) {
                     toast({

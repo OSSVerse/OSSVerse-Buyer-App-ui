@@ -10,6 +10,33 @@ vi.mock("../http-service");
 describe("usePlaceOrderInit", () => {
   const mockProvider = { id: "provider-1" };
   const mockItems = [{ id: "item-1" }];
+
+  const mockContext = {
+    domain: "Software Assurance",
+    location: {
+      city: {
+        name: "Bangalore",
+        code: "std:080",
+      },
+      country: {
+        name: "India",
+        code: "IND",
+      },
+    },
+    action: "confirm",
+    version: "1.1.0",
+    transaction_id: "ead489b8-81de-49a4-baf6-8d8de7eabf32",
+    message_id: "1d07c819-695c-44ab-bd47-c21678a6ba4e",
+    timestamp: new Date("2023-10-09T04:46:28.012Z"),
+    bap_id: "bap.ossverse.com",
+    bap_uri: "http://bap.ossverse.com",
+    bpp_id: "openfort-oasp.ossverse.com",
+    bpp_uri: "http://openfort-oasp.ossverse.com",
+    country: 'India',
+    city: 'bengaluru',
+    ttl: 'TM10'
+  }
+
   const mockBilling = {
     name: "John Doe",
     address: "123 Main St",
@@ -18,6 +45,7 @@ describe("usePlaceOrderInit", () => {
     email: "john.doe@example.com",
     phone: "1234567890",
   };
+
 
   const queryClient = new QueryClient();
 
@@ -31,6 +59,7 @@ describe("usePlaceOrderInit", () => {
           provider: mockProvider,
           items: mockItems,
           billing: mockBilling,
+          context: mockContext
         }),
       {
         wrapper: ({ children }: { children: React.ReactNode }) => (
@@ -66,6 +95,7 @@ describe("usePlaceOrderInit", () => {
           provider: mockProvider,
           items: mockItems,
           billing: mockBilling,
+          context: mockContext
         }),
       {
         wrapper: ({ children }: { children: React.ReactNode }) => (

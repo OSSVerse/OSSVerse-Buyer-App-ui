@@ -20,6 +20,9 @@ COPY . .
 ARG VITE_API_BASE_URL
 ENV VITE_API_BASE_URL=${VITE_API_BASE_URL}
 
+ARG VITE_BAP_ID
+ENV VITE_BAP_ID=${VITE_BAP_ID}
+
 # Build the application
 RUN pnpm run build
 

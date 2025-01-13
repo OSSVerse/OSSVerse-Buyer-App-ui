@@ -10,7 +10,7 @@ export type PlaceOrderInit = {
 export type PlaceOrderInitContext = {
   ttl: string;
   action: string;
-  timestamp: string;
+  timestamp: Date;
   message_id: string;
   transaction_id: string;
   domain: string;
@@ -20,7 +20,10 @@ export type PlaceOrderInitContext = {
   location: Location;
   bpp_id: string;
   bpp_uri: string;
+  country?: string;
+  city?: string;
 };
+
 export type Location = {
   country: City;
   city: City;
@@ -142,50 +145,38 @@ export const getData = (
   provider: Provider,
   items: QuoteMessageBodyItem[],
   billing: Billing,
-) => ({
-  initRequestDto: [
-    {
-      context: {
-        domain: "Software Assurance",
-        location: {
-          city: {
-            name: "Bangalore",
-            code: "std:080",
-          },
-          country: {
-            name: "India",
-            code: "IND",
+  context: PlaceOrderInitContext
+) => {
+  context.action = 'init';
+  // biome-ignore lint/performance/noDelete: <explanation>
+  delete context?.city;
+  // biome-ignore lint/performance/noDelete: <explanation>
+  delete context?.country
+  return {
+    initRequestDto: [
+      {
+        context,
+        message: {
+          order: {
+            provider,
+            items,
+            billing,
           },
         },
-        action: "init",
-        version: "1.1.0",
-        transaction_id: "ead489b8-81de-49a4-baf6-8d8de7eabf32",
-        message_id: "14bbc6b5-901c-49a6-bd69-ae1b71d4b86a",
-        timestamp: "2023-10-09T04:46:28.012Z",
-        bap_id: "bap.ossverse.com",
-        bap_uri: "http://bap.ossverse.com",
-        bpp_id: "openfort-oasp.ossverse.com",
-        bpp_uri: "http://openfort-oasp.ossverse.com",
       },
-      message: {
-        order: {
-          provider,
-          items,
-          billing,
-        },
-      },
-    },
-  ],
-});
+    ],
+  }
+};
 
 export const getPlaceOrderInit = async (
   provider: Provider,
   items: QuoteMessageBodyItem[],
   billing: Billing,
+  context: PlaceOrderInitContext
 ) => {
   return await httpService.post<PlaceOrderInit[]>(
     api.placeorder.init,
-    getData(provider, items, billing),
+    getData(provider, items, billing, context),
   );
 };
 
@@ -193,13 +184,15 @@ export const usePlaceOrderInit = ({
   provider,
   items,
   billing,
+  context
 }: {
   provider: Provider;
   items: QuoteMessageBodyItem[];
   billing: Billing;
+  context: PlaceOrderInitContext
 }) => {
   return useMutation({
-    mutationKey: [api.placeorder.init, provider, items, billing],
-    mutationFn: () => getPlaceOrderInit(provider, items, billing),
+    mutationKey: [api.placeorder.init, provider, items, billing, context],
+    mutationFn: () => getPlaceOrderInit(provider, items, billing, context),
   });
 };

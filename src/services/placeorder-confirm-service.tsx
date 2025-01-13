@@ -121,7 +121,7 @@ export type ResponseContext = {
 export type PlaceOrderConfirmContext = {
   ttl: string;
   action: string;
-  timestamp: string;
+  timestamp: Date;
   message_id: string;
   transaction_id: string;
   domain: string;
@@ -131,6 +131,8 @@ export type PlaceOrderConfirmContext = {
   location: Location;
   bpp_id: string;
   bpp_uri: string;
+  country?: string;
+  city?: string;
 };
 export type Location = {
   country: City;
@@ -167,53 +169,42 @@ export const getData = (
   items: QuoteMessageBodyItem[],
   billing: QuoteMessageBodyBilling,
   fulfillments: QuoteMessageBodyFulfillment[],
-) => ({
-  confirmRequestDto: [
-    {
-      context: {
-        domain: "Software Assurance",
-        location: {
-          city: {
-            name: "Bangalore",
-            code: "std:080",
-          },
-          country: {
-            name: "India",
-            code: "IND",
+  context: PlaceOrderConfirmContext
+) => {
+
+  context.action = 'confirm';
+  // biome-ignore lint/performance/noDelete: <explanation>
+  delete context?.city;
+  // biome-ignore lint/performance/noDelete: <explanation>
+  delete context?.country
+  return {
+    confirmRequestDto: [
+      {
+        context,
+        message: {
+          order: {
+            provider,
+            items,
+            fulfillments,
+            billing,
           },
         },
-        action: "confirm",
-        version: "1.1.0",
-        transaction_id: "ead489b8-81de-49a4-baf6-8d8de7eabf32",
-        message_id: "1d07c819-695c-44ab-bd47-c21678a6ba4e",
-        timestamp: "2023-10-09T04:46:28.012Z",
-        bap_id: "bap.ossverse.com",
-        bap_uri: "http://bap.ossverse.com",
-        bpp_id: "openfort-oasp.ossverse.com",
-        bpp_uri: "http://openfort-oasp.ossverse.com",
       },
-      message: {
-        order: {
-          provider,
-          items,
-          fulfillments,
-          billing,
-        },
-      },
-    },
-  ],
-  "userId": "1235"
-});
+    ],
+    "userId": "1235"
+  }
+};
 
 export const getPlaceOrderConfirm = async (
   provider: Provider,
   items: QuoteMessageBodyItem[],
   billing: QuoteMessageBodyBilling,
   fulfillments: QuoteMessageBodyFulfillment[],
+  context: PlaceOrderConfirmContext
 ) => {
   return await httpService.post<PlaceOrderConfirm[]>(
     api.placeorder.confirm,
-    getData(provider, items, billing, fulfillments),
+    getData(provider, items, billing, fulfillments, context),
   );
 };
 
@@ -224,12 +215,15 @@ export const usePlaceOrderConfirm = () => {
       items: QuoteMessageBodyItem[];
       billing: QuoteMessageBodyBilling;
       fulfillments: QuoteMessageBodyFulfillment[];
+      context: PlaceOrderConfirmContext;
     }) =>
       getPlaceOrderConfirm(
         data.provider,
         data.items,
         data.billing,
-        data.fulfillments),
+        data.fulfillments,
+        data.context
+      ),
     mutationKey: [
       api.placeorder.confirm,
     ],

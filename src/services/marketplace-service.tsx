@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { httpService } from "./http-service";
 import { api } from "./apis";
-
-
+import { VITE_BAP_ID } from "./env";
 
 export interface ProductListItem {
   totalPrice: number
@@ -111,8 +110,8 @@ export type CatalogContext = {
   version: string;
   bpp_id: string;
   bpp_uri: string;
-  country: string;
-  city: string;
+  country?: string;
+  city?: string;
   location: Location;
   bap_id: string;
   bap_uri: string;
@@ -170,10 +169,8 @@ const getData = (searchString: string, categoryName: string) => ({
     action: "search",
     version: "1.1.0",
     transaction_id: "ead489b8-81de-49a4-baf6-8d8de7eabf32",
-    bpp_id: "openfort-oasp.ossverse.com",
-    bpp_uri: "http://openfort-oasp.ossverse.com",
-    bap_id: "bap.ossverse.com",
-    bap_uri: "http://bap.ossverse.com",
+    bap_id: VITE_BAP_ID,
+    bap_uri: `http://${VITE_BAP_ID}`,
     message_id: "1d07c819-695c-44ab-bd47-c21678a6ba4e",
     timestamp: "2023-10-09T04:46:28.012Z",
   },
@@ -193,8 +190,6 @@ export const getMarketPlaceProducts = async (
     api.marketplace.search,
     getData(searchString, categoryName),
   );
-
-
 
 export type Product = {
   id: string;
@@ -357,8 +352,3 @@ export const useMarketPlaceProducts = (
     },
   });
 };
-
-
-
-
-// export { getMarketplace };

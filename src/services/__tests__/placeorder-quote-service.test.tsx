@@ -12,6 +12,32 @@ describe("usePlaceOrderQuote", () => {
   const mockItems = [{ id: "item-1" }];
   const mockFulfillment: unknown = {};
 
+  const mockContext = {
+    domain: "Software Assurance",
+    location: {
+      city: {
+        name: "Bangalore",
+        code: "std:080",
+      },
+      country: {
+        name: "India",
+        code: "IND",
+      },
+    },
+    action: "confirm",
+    version: "1.1.0",
+    transaction_id: "ead489b8-81de-49a4-baf6-8d8de7eabf32",
+    message_id: "1d07c819-695c-44ab-bd47-c21678a6ba4e",
+    timestamp: new Date("2023-10-09T04:46:28.012Z"),
+    bap_id: "bap.ossverse.com",
+    bap_uri: "http://bap.ossverse.com",
+    bpp_id: "openfort-oasp.ossverse.com",
+    bpp_uri: "http://openfort-oasp.ossverse.com",
+    country: 'India',
+    city: 'bengaluru',
+    ttl: 'TM10'
+  }
+
   const queryClient = new QueryClient();
 
   it("should call getPlaceOrderQuote with correct parameters", async () => {
@@ -34,6 +60,7 @@ describe("usePlaceOrderQuote", () => {
         provider: mockProvider,
         items: mockItems,
         fulfillment: mockFulfillment,
+        context: mockContext
       });
     });
 
@@ -68,6 +95,7 @@ describe("usePlaceOrderQuote", () => {
         provider: mockProvider,
         items: mockItems,
         fulfillment: mockFulfillment,
+        context: mockContext
       });
     });
 
