@@ -63,56 +63,62 @@ export const MarketplaceCard = ({
           : "#"
       }
     >
-      <Card className="max-w-full bg-[#F6F6F6] border-none shadow-none rounded-lg overflow-hidden h-full flex flex-col">
+      <Card className="max-w-full bg-gray-100 dark:bg-gray-900 border shadow-none rounded-lg overflow-hidden h-full flex flex-col">
         <CardHeader className="pb-2">
           <CardTitle className="space-y-2">
             <Badge
               variant={"secondary"}
-              className=" h-16 w-16 bg-[#D9D9D9] flex items-center justify-center rounded-full"
+              className="h-16 w-16 bg-gray-300 dark:bg-gray-700 flex items-center justify-center rounded-full"
             >
               {product.type === "PROJECT" ? (
-                <ProjectIcon className="h-8 w-8" />
+                <ProjectIcon className="h-8 w-8 text-gray-800 dark:text-gray-200" />
               ) : (
-                <MLModelIcon className="h-8 w-8" />
+                <MLModelIcon className="h-8 w-8 text-gray-800 dark:text-gray-200" />
               )}
             </Badge>
-            <h3 className="text-lg font-semibold  flex gap-1 items-center">
+            <h3 className="text-lg font-semibold flex gap-1 items-center text-gray-900 dark:text-gray-100">
               {product.descriptor.name}{" "}
-              <ExternalLink className=" h-4 w-4 text-gray-400 text-sm" />
+              <ExternalLink className="h-4 w-4 text-gray-400 dark:text-gray-500 text-sm" />
             </h3>
-            <p className="text-xs opacity-50">by {product.provider?.name}</p>
+            <p className="text-xs opacity-50 text-gray-700 dark:text-gray-400">
+              by {product.provider?.name}
+            </p>
           </CardTitle>
         </CardHeader>
-        {/* <CardDescription className="text-xs font-normal px-6 pb-4">
-                    {product.description}
-                </CardDescription> */}
-        <CardDescription className="text-xs mt-2 px-6 pb-4">
+
+        <CardDescription className="text-xs mt-2 px-6 pb-4 text-gray-700 dark:text-gray-300">
           {product.descriptor.short_desc}
         </CardDescription>
+
         <CardContent className="space-y-2">
-          <div className="text-sm font-semibold">Service Offered</div>
+          <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+            Service Offered
+          </div>
           <div className="flex flex-wrap gap-1">
             {product.services?.slice(0, 3).map((service) => (
               <Badge
                 variant="secondary"
-                className="text-xs bg-[#D9D9D9] "
+                className="text-xs bg-gray-300 text-gray-900 dark:bg-gray-700 dark:text-gray-100"
                 key={service.name}
               >
                 {service.name}
               </Badge>
             ))}
             {product.services && product.services?.length > 3 && (
-              <Badge variant="secondary" className="text-xs bg-[#D9D9D9] ">
+              <Badge
+                variant="secondary"
+                className="text-xs bg-gray-300 text-gray-900 dark:bg-gray-700 dark:text-gray-100"
+              >
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger>
                       +{product.services.length - 3}
                     </TooltipTrigger>
-                    <TooltipContent className="bg-white shadow w-60 flex gap-2 flex-wrap p-3">
+                    <TooltipContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 shadow w-60 flex gap-2 flex-wrap p-3">
                       {product.services?.slice(3).map((service) => (
                         <Badge
                           variant="secondary"
-                          className="text-xs bg-[#D9D9D9] "
+                          className="text-xs bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                           key={service.name}
                         >
                           {service.name}
@@ -126,14 +132,15 @@ export const MarketplaceCard = ({
           </div>
         </CardContent>
         <CardFooter className="flex justify-between items-center px-6 mt-auto">
-          <div className="text-lg">
+          <div className="text-lg text-gray-900 dark:text-gray-100">
             ₹{Number(product.totalPrice).toLocaleString("en-IN")}
           </div>
-          <div className="text-xs font-[500] capitalize text-muted-foreground">
+          <div className="text-xs font-medium capitalize text-gray-600 dark:text-gray-400">
             {product?.category_id}
           </div>
         </CardFooter>
       </Card>
+
     </Link>
   );
 };

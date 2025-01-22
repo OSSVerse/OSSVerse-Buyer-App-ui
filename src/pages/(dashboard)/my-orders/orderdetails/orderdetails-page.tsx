@@ -122,7 +122,7 @@ const OrderDetailsPage = () => {
   }, [data, id]);
 
   return (
-    <div className="page-root flex flex-col gap-7">
+    <div className="page-root flex flex-col gap-11 relative">
       <AppBreadCrumb data={breadcrumb} />
 
       <OrderDetailsHeader
@@ -138,10 +138,10 @@ const OrderDetailsPage = () => {
       before:top-0
       before:left-0
       before:w-full
-        before:h-[400px]
-        before:bg-neutral-100
-        before:z-[-1]
-      }
+      before:h-[400px]
+      before:bg-neutral-100
+      before:dark:bg-gray-500
+      before:z-[-1]
       "
       >
         <aside className="basis-72 flex-shrink-0">

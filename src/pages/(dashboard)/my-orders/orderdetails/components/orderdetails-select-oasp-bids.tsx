@@ -155,14 +155,14 @@ const CheckItem = ({
           status: selectedItem.id === "" ? "completed" : "pending",
         };
       }
-        return item;
+      return item;
     });
     setStageItems(tempItem);
   };
 
   return (
     <Label
-      className="text-[15px] font-medium leading-[35px] items-center flex w-full flex-wrap gap-[15px] bg-stone-100 px-4 py-1 rounded-md basis-[49%] justify-between"
+      className="text-[15px] font-medium leading-[35px] items-center flex w-full flex-wrap gap-[15px] bg-stone-200 dark:bg-stone-800 text-gray-900 dark:text-gray-100 px-4 py-1 rounded-md basis-[49%] justify-between"
       htmlFor={checkItem.id}
     >
       <Checkbox
@@ -175,19 +175,20 @@ const CheckItem = ({
         onCheckedChange={handleCheck}
       />
       <span className="flex items-center gap-2 min-w-72">
-        <Icon icon={checkItem.icon} className="opacity-50" />
+        <Icon icon={checkItem.icon} className="opacity-50 text-gray-700 dark:text-gray-400" />
         <span>{checkItem.name}</span>
       </span>
       <span className="flex items-center justify-between flex-grow">
         <span className="flex items-center gap-2">
-          <StarIcon /> {checkItem.rating}
+          <StarIcon className="text-yellow-500 dark:text-yellow-400" /> {checkItem.rating}
         </span>
-        <span>₹{checkItem.bid}</span>
-        <span>{checkItem.duration}</span>
+        <span className="text-gray-900 dark:text-gray-100">₹{checkItem.bid}</span>
+        <span className="text-gray-700 dark:text-gray-300">{checkItem.duration}</span>
         <Button
           variant={"default"}
           onClick={handleSelection}
           disabled={selectedItem.id !== "" && selectedItem.id !== checkItem.id}
+          className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {selectedItem?.id === checkItem.id ? "UnSelect" : "Select"}
         </Button>
@@ -201,26 +202,31 @@ const OrderDetailsSelectOASPBids = ({ setStageItems, stageItems }: Props) => {
   const [selectedOASPBid, setSelectedOASPBid] =
     useState<CheckItem>(initCheckItem);
   return (
-    <Card className="px-5 py-5 mb-4">
+    <Card className="px-5 py-5 mb-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
       <div className="flex gap-11 flex-wrap mb-4 w-full md:flex-nowrap items-end justify-between">
         <div className="basis-3/5 flex gap-4 items-center">
           <div>
-            <H3>OASP Bids for Custom Request List</H3>
-            <Muted className="leading-5">
-              Compare and assess Bids & select the OASP you want to assign for
-              the task.
+            <H3 className="text-gray-900 dark:text-gray-100">
+              OASP Bids for Custom Request List
+            </H3>
+            <Muted className="leading-5 text-gray-700 dark:text-gray-400">
+              Compare and assess Bids & select the OASP you want to assign for the task.
             </Muted>
           </div>
         </div>
         <div className="basis-2/5 flex gap-4 justify-end">
           {checkedOASPBids.length > 1 && (
             <div className="flex space-x-4">
-              <Button variant={"ghost"} onClick={() => setCheckedOASPBids([])}>
+              <Button
+                variant={"ghost"}
+                className="text-gray-900 dark:text-gray-100"
+                onClick={() => setCheckedOASPBids([])}
+              >
                 Unselect
               </Button>
               <Button
                 variant={"outline"}
-                className="border border-black font-semibold"
+                className="border border-gray-700 dark:border-gray-400 font-semibold text-gray-900 dark:text-gray-100"
               >
                 Compare
               </Button>
@@ -228,11 +234,11 @@ const OrderDetailsSelectOASPBids = ({ setStageItems, stageItems }: Props) => {
           )}
           <form className="ml-auto flex gap-3 md:w-auto">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
               <Input
                 type="search"
                 placeholder="Search OASP.."
-                className="pl-8 w-full md:w-[200px] lg:w-[300px]"
+                className="pl-8 w-full md:w-[200px] lg:w-[300px] bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400"
               />
             </div>
           </form>

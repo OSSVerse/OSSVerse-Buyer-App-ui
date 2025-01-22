@@ -76,51 +76,58 @@ const HomePage: FC = () => {
   };
   return (
     <div>
-      <div className="flex justify-between items-center bg-[#d9d9d9] -mt-3 page-root">
-        <div className="flex flex-col gap-7 ">
-          <Typography as="h1">
-            <div>Your Marketplace for Secure</div>{" "}
-            <div> Open Source Software Solutions </div>
+      <div className="flex justify-between items-center bg-gray-100 dark:bg-gray-900 -mt-3 page-root">
+        <div className="flex flex-col gap-7">
+          <Typography as="h1" className="text-gray-900 dark:text-gray-100">
+            <div>Your Marketplace for Secure</div>
+            <div>Open Source Software Solutions</div>
           </Typography>
-          <Typography as="p" className="text-black/50 w-full lg:w-4/5 xl:w-1/2">
+          <Typography as="p" className="text-gray-700 dark:text-gray-300 w-full lg:w-4/5 xl:w-1/2">
             Rely on the OSSVerse partner ecosystem, a collaborative community of
             experts and technologies, to keep your automotive business at the
             forefront of cloud and AI advancements.
           </Typography>
           <div className="flex gap-4">
-            <Button type="button" disabled>Get Started</Button>
-            {/* <Link to={ROUTE_PATH.MARKETPLACE}>
-              <Button className=" flex gap-1" type="button">
-                Explore Marketplace <ExternalLink className=" h-4 w-4" />
-              </Button>
-            </Link> */}
+            <Button
+              type="button"
+              disabled
+              className="bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            >
+              Get Started
+            </Button>
           </div>
         </div>
         <img
           src="/MarketplaceServices.png"
-          className=" hidden lg:block w-[625px]"
+          className="hidden lg:block w-[625px]"
           alt="Banner"
         />
       </div>
 
       <div className="flex flex-col gap-10 mt-10">
         <div className="flex flex-col gap-4 px-10">
-          <Typography as="h2">Featured Marketplace Offerings</Typography>
-          <div className="flex flex-col-reverse  md:flex-row  justify-between gap-4 items-center  flex-wrap md:flex-nowrap p">
+          <Typography as="h2" className="text-gray-900 dark:text-gray-100">
+            Featured Marketplace Offerings
+          </Typography>
+          <div className="flex flex-col-reverse md:flex-row justify-between gap-4 items-center flex-wrap md:flex-nowrap">
             <Tabs onValueChange={onChange} value={activeTab} className="w-full">
-              <TabsList className="bg-transparent gap-0 md:gap-4 text-muted-foreground">
+              <TabsList className="bg-transparent gap-0 md:gap-4 text-gray-700 dark:text-gray-300">
                 <TabItem title="All Offering" value="" />
                 <TabItem title="ML Model" value="ml-models" />
                 <TabItem title="Project" value="projects" />
               </TabsList>
             </Tabs>
-            {/* pagination */}
+            {/* Pagination */}
             <div>
-              <PagePagination currentPage={currentPage} totalPages={pageCount} onPageChange={onPageChange} />
+              <PagePagination
+                currentPage={currentPage}
+                totalPages={pageCount}
+                onPageChange={onPageChange}
+              />
             </div>
           </div>
           {isLoading ? (
-            <div>Loading...</div>
+            <div className="text-gray-700 dark:text-gray-300">Loading...</div>
           ) : (
             products && (
               <div className="grid gap-[30px] justify-center mx-auto w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -130,9 +137,12 @@ const HomePage: FC = () => {
               </div>
             )
           )}
-          <div className=" mt-6">
+          <div className="mt-6">
             <Link to={ROUTE_PATH.MARKETPLACE}>
-              <Button className=" flex gap-1" type="button">
+              <Button
+                className="flex gap-1 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                type="button"
+              >
                 Explore Marketplace
               </Button>
             </Link>
@@ -140,36 +150,36 @@ const HomePage: FC = () => {
         </div>
 
         <div className="flex flex-col gap-4 px-10">
-          <Typography as="h2">
+          <Typography as="h2" className="text-gray-900 dark:text-gray-100">
             Featured Open Source Assurance Service Providers
           </Typography>
           <div className="flex items-center justify-between">
-
-            <div className="flex flex-wrap gap-2 text-muted-foreground text-sm">
-              <span>Popular Service Offered: </span>
-              <div className=" flex  items-center">
-                {" "}
-                <span>Assessment </span>{" "}
-                <SquareArrowOutUpRight className=" h-3 text-gray-400" />
+            <div className="flex flex-wrap gap-2 text-gray-700 dark:text-gray-300 text-sm">
+              <span>Popular Service Offered:</span>
+              <div className="flex items-center">
+                <span>Assessment</span>
+                <SquareArrowOutUpRight className="h-3 text-gray-400 dark:text-gray-500" />
               </div>
-              <div className=" flex  items-center">
-                {" "}
-                <span>Certification </span>{" "}
-                <SquareArrowOutUpRight className=" h-3 text-gray-400" />
+              <div className="flex items-center">
+                <span>Certification</span>
+                <SquareArrowOutUpRight className="h-3 text-gray-400 dark:text-gray-500" />
               </div>
-              <div className=" flex  items-center">
-                {" "}
-                <span>Feature Enhancement </span>{" "}
-                <SquareArrowOutUpRight className=" h-3 text-gray-400" />
+              <div className="flex items-center">
+                <span>Feature Enhancement</span>
+                <SquareArrowOutUpRight className="h-3 text-gray-400 dark:text-gray-500" />
               </div>
             </div>
-            {/* pagination */}
+            {/* Pagination */}
             <div>
-              <PagePagination currentPage={featuredCurrentPage} totalPages={featuredPageCount} onPageChange={onFeaturedPageChange} />
+              <PagePagination
+                currentPage={featuredCurrentPage}
+                totalPages={featuredPageCount}
+                onPageChange={onFeaturedPageChange}
+              />
             </div>
           </div>
           {isLoadingForOSAP ? (
-            <div>Loading...</div>
+            <div className="text-gray-700 dark:text-gray-300">Loading...</div>
           ) : (
             productsForOSAP && (
               <div className="grid gap-[30px] justify-center mx-auto w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -179,10 +189,16 @@ const HomePage: FC = () => {
               </div>
             )
           )}
-          <div className=" mt-6">
-            <Button disabled={true}>Explore Open Source Service Providers (OASP)</Button>
+          <div className="mt-6">
+            <Button
+              disabled={true}
+              className="bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 cursor-not-allowed"
+            >
+              Explore Open Source Service Providers (OASP)
+            </Button>
           </div>
         </div>
+
         <MarketPlacePage isHomePage={true} />
         <LatestNews />
       </div>

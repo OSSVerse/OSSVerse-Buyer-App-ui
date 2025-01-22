@@ -75,7 +75,9 @@ const PlaceOrderPage = () => {
     mutateAsync,
     isPending,
   } = usePlaceOrderQuote();
+
   const [selectedServices, setSelectedServices] = useState<ICheckItem[]>([]);
+
   useEffect(() => {
     if (products && id) {
       mutateAsync({
@@ -88,11 +90,13 @@ const PlaceOrderPage = () => {
       });
     }
   }, [mutateAsync, products, id, selectedServices]);
+
   useEffect(() => {
     if (products) {
       setSelectedServices(products[0]?.services ?? []);
     }
   }, [products]);
+
   return (
     <div className="page-root flex flex-col gap-7">
       <AppBreadCrumb data={breadcrumb} />
@@ -111,10 +115,10 @@ const PlaceOrderPage = () => {
       before:top-0
       before:left-0
       before:w-full
-        before:h-[400px]
-        before:bg-neutral-100
-        before:z-[-1]
-      }
+      before:h-[400px]
+      before:bg-neutral-100
+      before:dark:bg-gray-500
+      before:z-[-1]
       "
       >
         {/* main aside */}
@@ -145,15 +149,18 @@ const PlaceOrderPage = () => {
           {/* description detail section */}
           <section
             className={cn(
-              isLessThanCurrentAnchor(0, currentAnchor) && "hidden",
+              isLessThanCurrentAnchor(0, currentAnchor) && "hidden"
             )}
           >
-            <Muted className="mb-4">{anchroLists[0].toLocaleUpperCase()}</Muted>
+            <Muted className="mb-4 text-gray-700 dark:text-gray-300">
+              {anchroLists[0].toLocaleUpperCase()}
+            </Muted>
             <DescriptionDetail
               description_details={product?.description_details}
               feature_enhancement={product?.feature_enhancement}
             />
           </section>
+
 
           {/* assessment service pricing section */}
           <section

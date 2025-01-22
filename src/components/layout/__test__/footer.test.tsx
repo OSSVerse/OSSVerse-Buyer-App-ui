@@ -1,12 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Footer from '../footer';
+import { ThemeProvider } from '../../../context/theme-context';
 import { describe, it, expect } from 'vitest';
 describe('Footer', () => {
     it('should render the logo', () => {
         render(
             <BrowserRouter>
-                <Footer />
+                <ThemeProvider>
+                    <Footer />
+                </ThemeProvider>
             </BrowserRouter>
         );
         const logo = screen.getByRole('img', { name: /logo/i });
@@ -16,7 +19,9 @@ describe('Footer', () => {
     it('should render the copyright text', () => {
         render(
             <BrowserRouter>
-                <Footer />
+                <ThemeProvider>
+                    <Footer />
+                </ThemeProvider>
             </BrowserRouter>
         );
         expect(screen.getByText(/© 2024 OSSVerse./i)).toBeInTheDocument();
@@ -27,7 +32,9 @@ describe('Footer', () => {
     it('should render all the links', () => {
         render(
             <BrowserRouter>
-                <Footer />
+                <ThemeProvider>
+                    <Footer />
+                </ThemeProvider>
             </BrowserRouter>
         );
 

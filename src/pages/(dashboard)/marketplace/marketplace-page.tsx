@@ -50,10 +50,6 @@ const TabItem = ({
 
 const MarketPlacePage = ({ isHomePage = false }: { isHomePage?: boolean }) => {
 
-
-  // const { data, isLoading } = useMarketPlaceProducts("", "OSS Project");
-  // const { modalData, isLoading: isModalLoading } = useMarketPlaceProducts("", "OSS Model");
-
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -101,26 +97,26 @@ const MarketPlacePage = ({ isHomePage = false }: { isHomePage?: boolean }) => {
   const [isGrid, setIsGrid] = useState(false);
   return (
     <div className="page-root flex flex-col gap-11 relative ">
-      <div className="absolute top-0 left-0 w-full h-[404px] -z-10 bg-[#CCCC] " />
+      <div className="absolute top-0 left-0 w-full h-[404px] -z-10 bg-[#CCCC] dark:bg-gray-800" />
       {!isHomePage && <AppBreadCrumb data={breadcrumb} />}
-      <div className="flex gap-4 flex-wrap md:flex-nowrap  ">
-        <H1>Explore Marketplace</H1>
-        <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 ">
-          <form className="ml-auto flex-1 flex  gap-3 w-full md:w-auto">
-            <div className="relative border-2 border-black/40 rounded-md">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+      <div className="flex gap-4 flex-wrap md:flex-nowrap">
+        <H1 className="text-gray-900 dark:text-gray-100">Explore Marketplace</H1>
+        <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+          <form className="ml-auto flex-1 flex gap-3 w-full md:w-auto">
+            <div className="relative border-2 border-gray-500/40 dark:border-gray-600 rounded-md">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-600 dark:text-gray-300" />
               <Input
                 type="search"
                 placeholder="Search Project/ML Model name.."
-                className="pl-8 w-full md:w-[200px] lg:w-[380px]"
+                className="pl-8 w-full md:w-[200px] lg:w-[380px] bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 border-gray-300 dark:border-gray-600"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            {/* <Button className="rounded-full">On-Demand Request</Button> */}
           </form>
         </div>
       </div>
+
       <div className="flex flex-col-reverse  md:flex-row  justify-between gap-4 items-center  flex-wrap md:flex-nowrap">
         <Tabs onValueChange={onChange} value={activeTab} className="w-full">
           <TabsList className="bg-transparent gap-0 md:gap-4">
@@ -172,13 +168,14 @@ const MarketPlacePage = ({ isHomePage = false }: { isHomePage?: boolean }) => {
       </div>
       <div>
         {isLoading ? (
-          <div>Loading...</div>
+          <div className="text-gray-700 dark:text-gray-300">Loading...</div>
         ) : data && data.length > 0 ? (
           <MarketplaceList showFilter={!!showFilter} products={filteredData} />
         ) : (
-          <div>No data found</div>
+          <div className="text-gray-700 dark:text-gray-300">No data found</div>
         )}
       </div>
+
     </div>
   );
 };

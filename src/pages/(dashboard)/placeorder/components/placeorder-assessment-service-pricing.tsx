@@ -194,25 +194,29 @@ const AssessmentServicePricing = ({
   const total_service_amount = 0;
 
   return (
-    <Card className="px-5 py-6 mb-4">
-      <H3 className="font-bold  mb-4">OASP and Service List Provided</H3>
+    <Card className="px-5 py-6 mb-4 bg-white dark:bg-gray-800">
+      <H3 className="font-bold mb-4 text-gray-900 dark:text-white">OASP and Service List Provided</H3>
       <div className="flex gap-11 flex-wrap mb-4 w-full md:flex-nowrap items-end justify-between">
         <div className="basis-3/5 flex gap-4 items-center">
           <Badge
             variant={"secondary"}
-            className=" h-16 w-16 flex items-center justify-center rounded-full"
+            className="h-16 w-16 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-600"
           >
             {type === "PROJECT" ? (
-              <ProjectIcon className="h-8 w-8" />
+              <ProjectIcon className="h-8 w-8 text-gray-900 dark:text-white" />
             ) : (
-              <MLModelIcon className="h-8 w-8" />
+              <MLModelIcon className="h-8 w-8 text-gray-900 dark:text-white" />
             )}
           </Badge>
           <div>
-            <H1 className="mb-1">{products?.[0]?.provider?.name}</H1>
-            <div className=" space-x-1">
-              {pricing_overall_info.map((info) => (
-                <Badge variant="secondary" className="text-x " key={info}>
+            <H1 className="mb-1 text-gray-900 dark:text-white">{products?.[0]?.provider?.name}</H1>
+            <div className="space-x-1">
+              {Array.isArray(pricing_overall_info) && pricing_overall_info.map((info) => (
+                <Badge
+                  variant="secondary"
+                  className="text-gray-700 dark:text-gray-300"
+                  key={info}
+                >
                   {info}
                 </Badge>
               ))}
@@ -220,92 +224,50 @@ const AssessmentServicePricing = ({
           </div>
         </div>
         <div className="basis-2/5 flex gap-4 justify-end">
-          <form className="ml-auto flex  gap-3 md:w-auto">
+          <form className="ml-auto flex gap-3 md:w-auto">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-300" />
               <Input
                 type="search"
                 placeholder="Search Service.."
-                className="pl-8 w-full md:w-[200px] lg:w-[300px]"
+                className="pl-8 w-full md:w-[200px] lg:w-[300px] bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </form>
         </div>
       </div>
 
-      {/* service list */}
+      {/* Service List */}
       <PlaceOrderCheckList
         items={products?.[0]?.services ?? []}
         setSelectedItems={setSelectedServices}
         selectedItems={selectedServices}
       />
-      {/* <div className="flex gap-11 flex-wrap mb-4 w-full md:flex-nowrap items-end justify-between">
-        <div className="basis-3/5 flex gap-4 items-center">
-          <div>
-            <H1>Top Recommended OASPs for Validation Your Project</H1>
-
-            <Muted className="leading-5">
-              Recommendation Criteria: Suitable expertise,95% successful track
-              record or above, 4.8customer ratings or above and same
-              geographical proximity.
-            </Muted>
-          </div>
-        </div>
-        <div className="basis-2/5 flex gap-4 justify-end">
-          <form className="ml-auto flex gap-3 md:w-auto">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search OASP.."
-                className="pl-8 w-full md:w-[200px] lg:w-[300px]"
-              />
-            </div>
-            <Button className="rounded-full">filter</Button>
-          </form>
-        </div>
-      </div>
-      <PlaceOrderCheckList
-        items={oaspItems}
-        setSelectedItems={setSelectedOasps}
-        disabledLength={selectedOasps.length >= 2}
-      />
-      <Muted className="leading-5">
-        Note: lf you want to change the OASP recommended by the platform, please
-        uncheck it first and replace with your choice.
-      </Muted> */}
       <Separator className="my-10" />
-      <H3 className="font-bold  mb-4">Assessment Service Pricing</H3>
+
+      <H3 className="font-bold mb-4 text-gray-900 dark:text-white">Assessment Service Pricing</H3>
       <div className="w-3/4 flex flex-col gap-2">
-        <div className="flex justify-between">
+        <div className="flex justify-between text-gray-900 dark:text-gray-100">
           <Paragraph>Initial Assessment</Paragraph>{" "}
           <span>₹{total_service_amount}</span>
         </div>
         <div className="pl-4 flex flex-col gap-2">
           {selectedServices.map((selectedService) => (
-            <div key={selectedService.id} className="flex gap-2">
-              <Paragraph className="basis-[49%]">
-                {selectedService.name}
-              </Paragraph>{" "}
+            <div key={selectedService.id} className="flex gap-2 text-gray-900 dark:text-gray-100">
+              <Paragraph className="basis-[49%]">{selectedService.name}</Paragraph>{" "}
               <span>₹{selectedService.price}</span>
             </div>
           ))}
         </div>
-        {/* {selectedOasps.map((selectedOasp) => (
-          <div key={selectedOasp.id} className="flex justify-between">
-            <Label>{selectedOasp.name}</Label> <span>₹
-              {selectedOasp.qty}
-            </span>
-          </div>
-        ))} */}
         <Separator className="my-4 relative before:content-['+'] before:absolute before:-right-5 before:-top-4 before:text-black before:text-2xl" />
 
-        <div className="flex justify-between">
+        <div className="flex justify-between text-gray-900 dark:text-gray-100">
           <Label>Total of Payment</Label>{" "}
           <span className="font-bold">₹{total_payment_amount}</span>
         </div>
       </div>
     </Card>
+
   );
 };
 

@@ -1,4 +1,3 @@
-import Icon from "@/components/common/icon";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -7,7 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp, ChevronDownIcon } from "lucide-react";
 import { Fragment, useState } from "react";
 import { type SortOption, SortOrder, SORT_MENUS } from "@/lib/constant";
 import type { IFilterSortPager } from "@/store/data-store";
@@ -43,10 +42,13 @@ const SortMenu = ({ setFilterSortPager, filterSortPager }: SortMenuProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button disabled={true}>
-          {localSort} <Icon icon="chevron-down" className="ml-2" />
+        <Button
+          disabled={true}
+        >
+          {localSort} <ChevronDownIcon className="h-5 w-5 ml-1" />
         </Button>
       </PopoverTrigger>
+
 
       <PopoverContent align="end" className="p-4 pr-8 flex flex-col">
         {SORT_MENUS.map((sortMenu) => {

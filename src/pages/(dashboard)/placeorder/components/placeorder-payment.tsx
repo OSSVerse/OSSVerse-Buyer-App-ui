@@ -22,17 +22,17 @@ const paymentMethods = [
 
 const Payment = () => {
   return (
-    <Card className="p-10 mb-4">
+    <Card className="p-10 mb-4 bg-white dark:bg-gray-800">
       <div className="pb-5 gap-7 flex justify-between items-center">
         <div className="basis-1/2">
-          <H3 className="font-bold  mb-4">Payment Information</H3>
-          <Paragraph>
+          <H3 className="font-bold mb-4 text-gray-900 dark:text-white">Payment Information</H3>
+          <Paragraph className="text-gray-700 dark:text-gray-300">
             Payment will be processed upon order confirmation. We accept
-            creditcards,PayPal, and other secure payment methods
+            credit cards, PayPal, and other secure payment methods.
           </Paragraph>
         </div>
         <div className="basis-1/2">
-          <Label.Root htmlFor="paymentMethod">Payment Method</Label.Root>
+          <Label.Root htmlFor="paymentMethod" className="text-gray-900 dark:text-gray-100">Payment Method</Label.Root>
           <Select defaultValue="1" id="paymentMethod">
             {paymentMethods.map((paymentMethod) => (
               <SelectItem value={paymentMethod.value} key={paymentMethod.value}>
@@ -42,24 +42,25 @@ const Payment = () => {
           </Select>
         </div>
       </div>
-      <div className="p-7 gap-7 bg-neutral-100 rounded-md flex justify-between">
+
+      <div className="p-7 gap-7 bg-neutral-100 dark:bg-gray-700 rounded-md flex justify-between">
         <div className="basis-1/2">
-          <Label.Root htmlFor="CardHolderName">Card Holder Name</Label.Root>
+          <Label.Root htmlFor="CardHolderName" className="text-gray-900 dark:text-gray-100">Card Holder Name</Label.Root>
           <Input
             id="CardHolderName"
             name="card_holder_name"
             placeholder="Full name on card"
-            className="w-full"
+            className="w-full bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
           />
         </div>
         <div className="basis-1/2 w-full">
-          <Label.Root htmlFor="CardInformation">Card Information</Label.Root>
+          <Label.Root htmlFor="CardInformation" className="text-gray-900 dark:text-gray-100">Card Information</Label.Root>
           <div className="relative">
             <Input
               id="CardInformation"
               name="card_number"
               placeholder="1234 1234 1234 1234"
-              className="w-full pr-36 rounded-b-none border-b-0"
+              className="w-full pr-36 rounded-b-none border-b-0 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
             />
 
             <div className="flex gap-1 absolute top-2 right-2">
@@ -69,17 +70,18 @@ const Payment = () => {
               <DiscoverIcon className="w-8" />
             </div>
           </div>
+
           <div className="flex">
             <Input
               name="card_year"
               placeholder="MM/YY"
-              className="w-full rounded-t-none rounded-br-none border-r-0"
+              className="w-full rounded-t-none rounded-br-none border-r-0 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
             />
             <div className="relative">
               <Input
                 name="card_cvv"
                 placeholder="CVV"
-                className="w-full rounded-t-none rounded-bl-none border-l-0 pr-9"
+                className="w-full rounded-t-none rounded-bl-none border-l-0 pr-9 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
               />
               <CVVIcon className="w-8 absolute top-2 right-2" />
             </div>
@@ -87,6 +89,7 @@ const Payment = () => {
         </div>
       </div>
     </Card>
+
   );
 };
 

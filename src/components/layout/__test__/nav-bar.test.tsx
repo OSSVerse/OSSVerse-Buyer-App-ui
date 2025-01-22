@@ -5,6 +5,7 @@ import { vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from '@testing-library/user-event'
 import { useModal } from "@/store/modal-store";
+import { ThemeProvider } from "../../../context/theme-context";
 
 vi.mock("@/store/modal-store"); // Mock useModal
 // Mocking auth-store to simulate authenticated state changes
@@ -38,7 +39,9 @@ describe("NavBar", () => {
 
     render(
       <MemoryRouter>
-        <NavBar />
+        <ThemeProvider>
+          <NavBar />
+        </ThemeProvider>
       </MemoryRouter>,
     );
 
@@ -60,7 +63,9 @@ describe("NavBar", () => {
 
     render(
       <MemoryRouter>
-        <NavBar />
+        <ThemeProvider>
+          <NavBar />
+        </ThemeProvider>
       </MemoryRouter>,
     );
 
@@ -90,7 +95,9 @@ describe("NavBar", () => {
 
     render(
       <MemoryRouter>
-        <NavBar />
+        <ThemeProvider>
+          <NavBar />
+        </ThemeProvider>
       </MemoryRouter>,
     );
 

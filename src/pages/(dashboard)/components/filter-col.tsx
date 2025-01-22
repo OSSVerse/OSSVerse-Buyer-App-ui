@@ -107,13 +107,20 @@ const FilterCol = ({ filterSortPager, setFilterSortPager }: IFilterCol) => {
     };
     return (
         <div className="w-[283px] xl:w-[380px] flex flex-col gap-3">
-            <div className="flex justify-between items-center gap-2 border p-2 rounded bg-white">
-                <span>Filter</span>
-                <Button disabled={!hasFilter} onClick={handleRestFilter}>
+            {/* Filter Header */}
+            <div className="flex justify-between items-center gap-2 border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-800">
+                <span className="text-gray-900 dark:text-gray-100">Filter</span>
+                <Button
+                    disabled={!hasFilter}
+                    onClick={handleRestFilter}
+                    className={`text-sm ${hasFilter ? "text-blue-600 dark:text-blue-400" : "text-gray-400 dark:text-gray-500"}`}
+                >
                     Reset
                 </Button>
             </div>
-            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
+
+            {/* Filter by Type */}
+            <div className="flex flex-col gap-2 border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-800">
                 <FilterBox value="filter-type" trigger="Type">
                     <FilterCheckBox
                         all_title="All Type"
@@ -132,14 +139,16 @@ const FilterCol = ({ filterSortPager, setFilterSortPager }: IFilterCol) => {
                     />
                 </FilterBox>
             </div>
-            <div className="flex flex-col gap-2  border p-2 rounded bg-white">
+
+            {/* Filter by Service Order */}
+            <div className="flex flex-col gap-2 border border-gray-300 dark:border-gray-600 p-2 rounded bg-white dark:bg-gray-800">
                 <FilterBox value="filter-service-order" trigger="Service Order">
                     <div className="relative">
-                        <SearchAltIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                        <SearchAltIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
                         <Input
                             type="search"
                             placeholder="Search service Offer..."
-                            className="pl-8 w-full text-xs"
+                            className="pl-8 w-full text-xs bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 border border-gray-300 dark:border-gray-600 rounded"
                             onChange={handleSearch}
                             value={searchTerm}
                         />
@@ -164,6 +173,7 @@ const FilterCol = ({ filterSortPager, setFilterSortPager }: IFilterCol) => {
                 </FilterBox>
             </div>
         </div>
+
     );
 };
 

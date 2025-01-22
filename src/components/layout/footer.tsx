@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import Logo from "../icons/logo";
+import Logo from "../icons/Light/logo";
 import useAuthStore from "@/store/auth-store";
 import LoginNavbar from "./login-navbar";
 import { ROUTE_PATH } from "@/routes/route-path";
+import ThemeSwitcher from "../theme-switcher";
 
 const Footer = () => {
   const { isAuthenticated, openLoginNavbar, setOpenLoginNavbar } =
@@ -61,6 +62,7 @@ const Footer = () => {
                 </div>
               )
             }
+            <ThemeSwitcher />
           </div>
         </div>
       </footer>

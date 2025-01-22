@@ -47,15 +47,15 @@ const AnchorLists = ({
   anchroLists,
 }: AnchorListsProps) => {
   return (
-    <Card className="mb-8 p-2 bg-stone-100">
+    <Card className="mb-8 p-2 bg-gray-100 dark:bg-gray-800">
       <ul>
         {anchroLists.map((anchroList, index) => (
           <li key={anchroList}>
             <button
               type="button"
               className={cn(
-                "px-4 py-3 w-full text-left rounded-md hover:bg-neutral-300",
-                index === currentAnchor && "bg-neutral-300",
+                "px-4 py-3 w-full text-left rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700",
+                index === currentAnchor && "bg-gray-300 dark:bg-gray-700"
               )}
               onClick={() => setCurrentAnchor(index)}
             >

@@ -200,31 +200,31 @@ const OrdersPage = ({ data }: { data: OrderResponse['orders'] }) => {
   return (
     <div
       data-testid="my-orders-page"
-      className="page-root flex flex-col gap-7 xl:pt-8"
+      className="page-root flex flex-col gap-11 relative"
     >
-      <div className="absolute top-0 left-0 w-full h-[370px] -z-10 bg-neutral-100" />
+      <div className="absolute top-0 left-0 w-full h-[404px] -z-10 bg-[#CCCC] dark:bg-gray-800" />
       <AppBreadCrumb data={breadcrumb} />
-      <div className="flex gap-4 flex-wrap md:flex-nowrap ">
-        <H1>My Orders</H1>
-        <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4 ">
-          <form className="ml-auto flex-1 flex  gap-3 w-full md:w-auto">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+      <div className="flex gap-4 flex-wrap md:flex-nowrap">
+        <H1 className="text-gray-900 dark:text-gray-100">My Orders</H1>
+        <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+          <form className="ml-auto flex-1 flex gap-3 w-full md:w-auto">
+            <div className="relative border-2 border-gray-500/40 dark:border-gray-600 rounded-md">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-600 dark:text-gray-300" />
               <Input
                 type="search"
                 placeholder="Search by Order Project name"
-                className="pl-8 w-full md:w-[200px] lg:w-[300px]"
+                className="pl-8 w-full md:w-[200px] lg:w-[380px] bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 border-gray-300 dark:border-gray-600"
                 onChange={handleSearch}
               />
             </div>
           </form>
         </div>
       </div>
-      <div className="flex flex-col-reverse  md:flex-row  justify-between gap-4 items-center  flex-wrap lg:flex-nowrap">
+      <div className="flex flex-col-reverse md:flex-row justify-between gap-4 items-center flex-wrap lg:flex-nowrap">
         <Tabs onValueChange={onChange} value={activeTab} className="w-full">
           <TabsList className="bg-transparent gap-0 md:gap-4">
             {Array.from(
-              new Map(tabsData.map(item => [item.state, item])).values()
+              new Map(tabsData.map((item) => [item.state, item])).values()
             ).map((tab) => (
               <TabItem
                 key={tab.state}
@@ -236,26 +236,26 @@ const OrdersPage = ({ data }: { data: OrderResponse['orders'] }) => {
             ))}
           </TabsList>
         </Tabs>
-        <div className="flex items-center gap-4">
+        <div className="flex w-full md:justify-end items-center gap-4">
           <Button
             variant={"outline"}
             size="icon"
-            className="rounded-full"
+            className={`rounded-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${!isGrid && "opacity-30"
+              }`}
             onClick={() => onDisplayChange(false)}
           >
-            <ListLayoutIcon className={`h-5 w-5 ${!isGrid && "opacity-30"}`} />
+            <ListLayoutIcon className="h-5 w-5" />
           </Button>
           <Button
             variant={"outline"}
             size="icon"
-            className="rounded-full"
+            className={`rounded-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 ${isGrid && "opacity-30"
+              }`}
             onClick={() => onDisplayChange(true)}
           >
-            <GridLayoutIcon className={`h-5 w-5 ${isGrid && "opacity-30"}`} />
+            <GridLayoutIcon className="h-5 w-5" />
           </Button>
           <Button
-            variant={"outline"}
-            className="border-2 border-black text-black"
             onClick={() => onFilterChange(showFilter)}
           >
             Filter
@@ -278,6 +278,7 @@ const OrdersPage = ({ data }: { data: OrderResponse['orders'] }) => {
         )}
       </div>
     </div>
+
   );
 };
 

@@ -43,7 +43,7 @@ const MarketplaceList = ({
       if (product.provider?.name) {
         if (
           !updatedFilterdata.OSAP.some(
-            (item: {value: string}) => item.value === product.provider?.name.toLowerCase().replace(/\s+/g, "-")
+            (item: { value: string }) => item.value === product.provider?.name.toLowerCase().replace(/\s+/g, "-")
           )
         ) {
           updatedFilterdata.OSAP.push({
@@ -57,7 +57,7 @@ const MarketplaceList = ({
         product.services.map((service: { name: string }) => {
           if (
             !updatedFilterdata["Service Offered"].some(
-              (item: {value: string}) => item.value === service.name.toLowerCase().replace(/\s+/g, "-")
+              (item: { value: string }) => item.value === service.name.toLowerCase().replace(/\s+/g, "-")
             )
           ) {
             updatedFilterdata["Service Offered"].push({
@@ -165,136 +165,154 @@ const MarketplaceList = ({
             data-testid="filter-container"
             className="w-[283px] xl:w-[380px] flex flex-col gap-3"
           >
-            <div className="flex bg-white justify-between items-center gap-2 border p-2 rounded">
-              <span>Filter</span>
-              <Button onClick={() => setActiveFilters(initialFilters)}>
+            <div className="flex bg-white dark:bg-gray-800 justify-between items-center gap-2 border border-gray-300 dark:border-gray-600 p-2 rounded">
+              <span className="text-gray-900 dark:text-gray-100">Filter</span>
+              <Button
+                onClick={() => setActiveFilters(initialFilters)}
+                className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              >
                 Reset
               </Button>
             </div>
-            {Object.keys(filterdata).map((filter) => {
-              return (
-                <div
-                  key={filter}
-                  className="flex bg-white justify-between items-center gap-2 border p-2 rounded"
+            {Object.keys(filterdata).map((filter) => (
+              <div
+                key={filter}
+                className="flex bg-white dark:bg-gray-800 justify-between items-center gap-2 border border-gray-300 dark:border-gray-600 p-2 rounded"
+              >
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full border-none"
                 >
-                  <Accordion
-                    type="single"
-                    collapsible
-                    className="w-full   border-none"
-                  >
-                    <AccordionItem value={filter} className="border-none">
-                      <AccordionTrigger>{filter}</AccordionTrigger>
-                      <AccordionContent className="flex flex-col gap-4">
-                        <div className="relative">
-                          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            type="search"
-                            placeholder="Search Service Offered"
-                            className="pl-8 w-full text-xs"
-                          />
-                        </div>
-                        <div
-                          data-testid={"filter-item-list"}
-                          className="flex flex-col gap-2 "
-                        >
-                          {filterdata[filter as keyof typeof filterdata].map(
-                            (filtercheckbox: { value: string; name: string; }) => (
-                              <div
-                                className="flex items-center p-1 gap-2"
-                                key={filtercheckbox.value}
+                  <AccordionItem value={filter} className="border-none">
+                    <AccordionTrigger className="text-gray-900 dark:text-gray-100">
+                      {filter}
+                    </AccordionTrigger>
+                    <AccordionContent className="flex flex-col gap-4">
+                      <div className="relative">
+                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                        <Input
+                          type="search"
+                          placeholder="Search Service Offered"
+                          className="pl-8 w-full text-xs bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400"
+                        />
+                      </div>
+                      <div
+                        data-testid={"filter-item-list"}
+                        className="flex flex-col gap-2"
+                      >
+                        {filterdata[filter as keyof typeof filterdata].map(
+                          (filtercheckbox: { value: string; name: string }) => (
+                            <div
+                              className="flex items-center p-1 gap-2"
+                              key={filtercheckbox.value}
+                            >
+                              <Checkbox
+                                disabled={filtercheckbox.value === "all"}
+                                checked={
+                                  activeFilters[
+                                    filter as keyof typeof filterdata
+                                  ].find(
+                                    (f: { value: string }) =>
+                                      f.value === filtercheckbox.value,
+                                  ) !== undefined
+                                }
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleFilterChange(filter, filtercheckbox);
+                                }}
+                              />
+                              <label
+                                htmlFor="terms"
+                                className="text-sm font-medium leading-none text-gray-900 dark:text-gray-100 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               >
-                                <Checkbox
-                                  disabled={filtercheckbox.value === "all"}
-                                  // value={filtercheckbox.value}
-                                  checked={
-                                    activeFilters[
-                                      filter as keyof typeof filterdata
-                                    ].find(
-                                      (f: { value: string; }) => f.value === filtercheckbox.value,
-                                    ) !== undefined
-                                  }
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleFilterChange(filter, filtercheckbox);
-                                  }}
-                                />
-                                <label
-                                  htmlFor="terms"
-                                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                >
-                                  {filtercheckbox.name}
-                                </label>
-                              </div>
-                            ),
-                          )}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </Accordion>
-                </div>
-              );
-            })}
+                                {filtercheckbox.name}
+                              </label>
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            ))}
           </div>
         )}
-        <div className=" space-y-4  w-full">
-          {hasFilters && (<div className="ml-8 py-4 flex gap-6 font-medium w-full">
-            {Object.keys(activeFilters)
-              .filter((item) =>
-                activeFilters[item as keyof typeof activeFilters].find(
-                  (f: { value: string; }) => f.value !== "all",
-                ),
-              )
-              .map((filter) => {
-                return (
-                  <div key={filter} className="flex items-center gap-2">
-                    <span>{filter}</span>
-                    <span>
-                      {activeFilters[filter as keyof typeof activeFilters]
-                        .map((f: { name: string; }) => f.name)
-                        .join(", ")}
-                    </span>
-                    <Button
-                      variant="ghost"
-                      onClick={() =>
-                        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-                        setActiveFilters((prev: any) => ({
-                          ...prev,
-                          [filter]: [{ name: "All", value: "all" }],
-                        }))
-                      }
-                      size="icon"
-                    >
-                      <X className="h-4 w-4 text-muted-foreground" />
-                    </Button>
-                  </div>
-                );
-              })}
-          </div>)}
+        <div className="space-y-4 w-full">
+          {hasFilters && (
+            <div className="ml-8 py-4 flex gap-6 font-medium w-full text-gray-900 dark:text-gray-100">
+              {Object.keys(activeFilters)
+                .filter((item) =>
+                  activeFilters[item as keyof typeof activeFilters].find(
+                    (f: { value: string }) => f.value !== "all"
+                  )
+                )
+                .map((filter) => {
+                  return (
+                    <div key={filter} className="flex items-center gap-2">
+                      <span>{filter}</span>
+                      <span>
+                        {activeFilters[filter as keyof typeof activeFilters]
+                          .map((f: { name: string }) => f.name)
+                          .join(", ")}
+                      </span>
+                      <Button
+                        variant="ghost"
+                        onClick={() =>
+                          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+                          setActiveFilters((prev: any) => ({
+                            ...prev,
+                            [filter]: [{ name: "All", value: "all" }],
+                          }))
+                        }
+                        size="icon"
+                      >
+                        <X className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                      </Button>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
           <div
             data-testid={"product-list"}
             className={cn(`
-            grid gap-[30px] justify-center mx-auto w-full
-            ${showFilter
+              grid gap-[30px] justify-center mx-auto w-full
+              ${showFilter
                 ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
                 : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
               }
-          `)}
+            `)}
           >
             {getFeaturedPageItems?.map((product) => (
               <MarketplaceCard product={product} key={product.id} />
             ))}
           </div>
           <div className="sm:flex space-y-4 justify-between items-center w-full">
-            <div className="flex items-center  gap-2 w-96">
-              <span className="text-xs ">Showing {getFeaturedPageItems?.length * (featuredCurrentPage - 1) + 1} - {getFeaturedPageItems?.length * featuredCurrentPage} of {products?.length}</span>{" "}
-              <Separator orientation="vertical" className="h-4 w-[3px]" />
-              <span className="text-xs ">6 per page</span>
+            <div className="flex items-center gap-2 w-96">
+              <span className="text-xs text-gray-700 dark:text-gray-300">
+                Showing{" "}
+                {getFeaturedPageItems?.length * (featuredCurrentPage - 1) + 1} -{" "}
+                {getFeaturedPageItems?.length * featuredCurrentPage} of{" "}
+                {products?.length}
+              </span>
+              <Separator
+                orientation="vertical"
+                className="h-4 w-[3px] bg-gray-400 dark:bg-gray-600"
+              />
+              <span className="text-xs text-gray-700 dark:text-gray-300">6 per page</span>
             </div>
             <div>
-              <PagePagination currentPage={featuredCurrentPage} totalPages={featuredPageCount} onPageChange={onFeaturedPageChange} />
+              <PagePagination
+                currentPage={featuredCurrentPage}
+                totalPages={featuredPageCount}
+                onPageChange={onFeaturedPageChange}
+              />
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

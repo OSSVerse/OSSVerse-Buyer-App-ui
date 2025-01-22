@@ -19,7 +19,7 @@ const AppBreadCrumb = ({
         {data.map((item, index) =>
           index === data.length - 1 ? (
             <BreadcrumbItem key={item.url}>
-              <BreadcrumbPage className="uppercase text-[0.75rem] placeholder-opacity-50 text-primary opacity-50">
+              <BreadcrumbPage className="uppercase text-[0.75rem] text-gray-500 dark:text-gray-400">
                 {item.title}
               </BreadcrumbPage>
             </BreadcrumbItem>
@@ -28,18 +28,21 @@ const AppBreadCrumb = ({
               <BreadcrumbItem>
                 <BreadcrumbLink
                   href={item.url}
-                  className="uppercase text-[0.75rem] text-primary"
+                  className="uppercase text-[0.75rem] text-gray-900 hover:underline"
                 >
-                  {" "}
                   {item.title}
                 </BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator key={`${item.url}-separator`} />
+              <BreadcrumbSeparator
+                key={`${item.url}-separator`}
+                className="text-gray-500 dark:text-gray-400"
+              />
             </Fragment>
           ),
         )}
       </BreadcrumbList>
     </Breadcrumb>
+
   );
 };
 

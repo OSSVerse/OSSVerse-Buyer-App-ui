@@ -11,12 +11,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Logo from "@/components/icons/logo";
 import NotificationButton from "@/components/common/notification-button";
 import useAuthStore from "@/store/auth-store";
 import { useModal } from "@/store/modal-store";
 import LoginNavbar from "./login-navbar";
 import { ROUTE_PATH } from "@/routes/route-path";
+import { useTheme } from "@/context/theme-context";
+import DarkLogo from "../icons/Dark/logo";
+import LightLogo from "../icons/Light/logo";
 
 const items = [
   {
@@ -62,6 +64,7 @@ const NavBar = () => {
     useAuthStore((state) => state);
   const { onOpen, onClose } = useModal();
   const location = useLocation();
+  const logo = (useTheme().theme === 'dark') ? <DarkLogo /> : <LightLogo />
 
   const availableRoutes = Object.values(ROUTE_PATH);
 
@@ -76,7 +79,7 @@ const NavBar = () => {
             to="/"
             className="p-2 flex items-center gap-2 text-lg  md:text-base"
           >
-            <Logo />
+            {logo}
           </Link>
 
           {items.map((item) => {
@@ -114,7 +117,7 @@ const NavBar = () => {
                 to="#"
                 className="flex items-center gap-2 text-lg font-semibold"
               >
-                <Logo />
+                {logo}
               </Link>
               {items.map((item) => (
                 <Link
@@ -133,14 +136,15 @@ const NavBar = () => {
 
           <form className="ml-0 mr-auto hidden xl:block flex-1 sm:flex-initial">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
               <Input
                 type="search"
                 placeholder="Global search..."
-                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600"
               />
             </div>
           </form>
+
 
           {/* {isAuthenticated && (
             <Button variant="secondary" size="icon" className="rounded-full">
@@ -159,23 +163,23 @@ const NavBar = () => {
           {isAuthenticated ? (
             <DropdownMenu modal>
               <DropdownMenuTrigger asChild>
-                <div className=" flex gap-4">
+                <div className="flex gap-4">
                   <Button
                     variant="secondary"
                     size="icon"
-                    className="rounded-full"
+                    className="rounded-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                   >
-                    <CircleUser className="h-5 w-5" />
+                    <CircleUser className="h-5 w-5 text-gray-500 dark:text-gray-400" />
                     <span className="sr-only">Toggle user menu</span>
                   </Button>
-                  <div className=" cursor-pointer">
-                    <div className="flex gap-2 items-center text-sm text-secondary-foreground">
-                      Clark Kent{" "}
+                  <div className="cursor-pointer">
+                    <div className="flex gap-2 items-center text-sm text-gray-700 dark:text-gray-300">
+                      Clark Kent
                       <span>
-                        <ChevronDown className="h-4 w-4" />
-                      </span>{" "}
+                        <ChevronDown className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                      </span>
                     </div>
-                    <div className="text-xs font-semibold text-secondary-foreground">
+                    <div className="text-xs font-semibold text-gray-600 dark:text-gray-400">
                       BUSINESS
                     </div>
                   </div>
@@ -211,20 +215,6 @@ const NavBar = () => {
               variant="icon"
               onClick={() => {
                 setOpenLoginNavbar(true);
-                // onOpen("confirmationDialog", {
-                //   confirmationDialog: {
-                //     title: "Login",
-                //     content: "Are you sure you want to login?",
-                //     onConfirm: () => {
-                //       login({
-                //         id: "1",
-                //         name: "John Doe",
-                //         email: "john.doe@example.com",
-                //       });
-                //       onClose();
-                //     },
-                //   },
-                // })
               }}
             >
               <span className="sr-only">LogIn</span>

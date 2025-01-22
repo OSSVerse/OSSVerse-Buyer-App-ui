@@ -30,70 +30,84 @@ const OrderDetailsPaymentBillingInfo = ({
   order
 }: Props) => {
   return (
-    <Card className="px-5 py-6 mb-4">
+    <Card className="px-5 py-6 mb-4 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
       <>
-        <H3 className="mb-3">Payment Info</H3>
+        <H3 className="mb-3 text-gray-900 dark:text-gray-100">Payment Info</H3>
         <div className="mb-7 flex items-center">
           <div className="pe-5">
-            <Badge variant={"secondary"} className="p-2">
-              <CreditCardIcon className="text-gray-500" />
+            <Badge variant={"secondary"} className="p-2 bg-gray-200 dark:bg-gray-700">
+              <CreditCardIcon className="text-gray-500 dark:text-gray-400" />
             </Badge>
           </div>
           <div className="pe-10">
-            <Muted className="text-base">Payment Method</Muted>
-            <Paragraph>{payment_info.payment_method}</Paragraph>
+            <Muted className="text-base text-gray-700 dark:text-gray-400">Payment Method</Muted>
+            <Paragraph className="text-gray-900 dark:text-gray-100">
+              {payment_info.payment_method}
+            </Paragraph>
           </div>
           <div className="pe-10">
-            <Muted className="text-base">Status</Muted>
-            <Paragraph>{payment_info.status}</Paragraph>
+            <Muted className="text-base text-gray-700 dark:text-gray-400">Status</Muted>
+            <Paragraph className="text-gray-900 dark:text-gray-100">
+              {payment_info.status}
+            </Paragraph>
           </div>
           <div>
-            <Muted className="text-base">Amount</Muted>
-            <Paragraph>₹{order?.quote?.price?.value}</Paragraph>
+            <Muted className="text-base text-gray-700 dark:text-gray-400">Amount</Muted>
+            <Paragraph className="text-gray-900 dark:text-gray-100">
+              ₹{order?.quote?.price?.value}
+            </Paragraph>
           </div>
         </div>
       </>
       <>
-        <H3 className="mb-3">Billing Info</H3>
+        <H3 className="mb-3 text-gray-900 dark:text-gray-100">Billing Info</H3>
         <div className="mb-7 flex items-center">
           <div className="pe-5">
-            <Badge variant={"secondary"} className="p-2">
-              <UserIcon className="text-gray-500" />
+            <Badge variant={"secondary"} className="p-2 bg-gray-200 dark:bg-gray-700">
+              <UserIcon className="text-gray-500 dark:text-gray-400" />
             </Badge>
           </div>
           <div className="pe-10">
-            <Muted className="text-base">First Name</Muted>
-            <Paragraph>{billing_info.first_name}</Paragraph>
+            <Muted className="text-base text-gray-700 dark:text-gray-400">First Name</Muted>
+            <Paragraph className="text-gray-900 dark:text-gray-100">
+              {billing_info.first_name}
+            </Paragraph>
           </div>
           <div className="pe-10">
-            <Muted className="text-base">Last Name</Muted>
-            <Paragraph>{billing_info.last_name}</Paragraph>
+            <Muted className="text-base text-gray-700 dark:text-gray-400">Last Name</Muted>
+            <Paragraph className="text-gray-900 dark:text-gray-100">
+              {billing_info.last_name}
+            </Paragraph>
           </div>
           <div className="pe-5">
-            <Badge variant={"secondary"} className="p-2">
-              <TabletIcon className="text-gray-500" />
+            <Badge variant={"secondary"} className="p-2 bg-gray-200 dark:bg-gray-700">
+              <TabletIcon className="text-gray-500 dark:text-gray-400" />
             </Badge>
           </div>
           <div className="pe-10">
-            <Muted className="text-base">Work Mail</Muted>
-            <Paragraph>{billing_info.work_mail}</Paragraph>
+            <Muted className="text-base text-gray-700 dark:text-gray-400">Work Mail</Muted>
+            <Paragraph className="text-gray-900 dark:text-gray-100">
+              {billing_info.work_mail}
+            </Paragraph>
           </div>
           <div>
-            <Muted className="text-base">Phone</Muted>
-            <Paragraph>{billing_info.phone}</Paragraph>
+            <Muted className="text-base text-gray-700 dark:text-gray-400">Phone</Muted>
+            <Paragraph className="text-gray-900 dark:text-gray-100">
+              {billing_info.phone}
+            </Paragraph>
           </div>
         </div>
         <div className="mb-5 flex items-center">
           <div className="pe-10">
             <Button
               variant={"outline"}
-              className="border border-2 border-black font-semibold"
+              className="border border-2 border-gray-700 dark:border-gray-400 font-semibold text-gray-900 dark:text-gray-100"
             >
               Edit Billing Info
             </Button>
           </div>
           <div>
-            <Muted>
+            <Muted className="text-gray-700 dark:text-gray-400">
               Billing information can only be changed if the OASP <br /> hasn't
               accepted the order yet.
             </Muted>

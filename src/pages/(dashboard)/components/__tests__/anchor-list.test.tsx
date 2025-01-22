@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import AnchorLists, {isLessThanCurrentAnchor} from "../anchor-list";
+import AnchorLists, { isLessThanCurrentAnchor } from "../anchor-list";
+import { ThemeProvider } from "../../../../context/theme-context";
 
 describe('isLessThanCurrentAnchor', () => {
   it('should return true when anchorIndex is less than currentAnchor', () => {
@@ -64,14 +65,17 @@ describe("AnchorLists Component", () => {
 
   it("highlights the current anchor button", () => {
     render(
-      <AnchorLists
-        currentAnchor={1}
-        setCurrentAnchor={mockSetCurrentAnchor}
-        anchroLists={anchroLists}
-      />,
+
+      <ThemeProvider>
+        <AnchorLists
+          currentAnchor={1}
+          setCurrentAnchor={mockSetCurrentAnchor}
+          anchroLists={anchroLists}
+        />
+      </ThemeProvider>
     );
 
     const currentButton = screen.getByText("Assessment Service Pricing");
-    expect(currentButton).toHaveClass("bg-neutral-300"); // The class should match the one applied for selected items
+    expect(currentButton).toHaveClass("px-4 py-3 w-full text-left rounded-md text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700 bg-gray-300 dark:bg-gray-700"); // The class should match the one applied for selected items
   });
 });

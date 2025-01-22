@@ -37,14 +37,14 @@ const CheckItem = ({
   return (
     <Label.Root
       data-testid="check-item"
-      className="text-[15px] font-medium leading-[35px] items-center flex w-full flex-wrap gap-[15px] bg-stone-100 px-4 py-1 rounded-md basis-[49%] justify-between"
+      className="text-[15px] font-medium leading-[35px] items-center flex w-full flex-wrap gap-[15px] bg-stone-100 dark:bg-stone-800 px-4 py-1 rounded-md basis-[49%] justify-between"
       htmlFor={id}
     >
-      <span className="flex  items-center  gap-3 min-w-72">
+      <span className="flex items-center gap-3 min-w-72 text-gray-900 dark:text-gray-100">
         {/* <Icon icon={icon} className="opacity-50" /> */}
         <span>{name}</span>
       </span>
-      <span className="flex  items-center justify-between flex-grow">
+      <span className="flex items-center justify-between flex-grow text-gray-900 dark:text-gray-100">
         <span>₹{price}</span>
         <Checkbox
           id={id}
@@ -62,7 +62,6 @@ const CheckItem = ({
           disabled={
             disabledLength && !selectedItems.some((item) => item.id === id)
           }
-          // disabled={/disabledLength && !selectedItems.some((item) => item.id === id)}
         />
       </span>
     </Label.Root>

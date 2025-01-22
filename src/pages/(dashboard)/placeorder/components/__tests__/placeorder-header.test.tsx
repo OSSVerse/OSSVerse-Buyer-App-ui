@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import PlaceorderHeader from "../placeorder-header";
+import { ThemeProvider } from "../../../../../context/theme-context";
 
 describe("PlaceorderHeader", () => {
   const title = "Sample Title";
@@ -7,11 +8,13 @@ describe("PlaceorderHeader", () => {
 
   it("renders with project type and displays title and description", () => {
     render(
-      <PlaceorderHeader
-        type="PROJECT"
-        title={title}
-        description={description}
-      />,
+      <ThemeProvider>
+        <PlaceorderHeader
+          type="PROJECT"
+          title={title}
+          description={description}
+        />
+      </ThemeProvider>
     );
 
     expect(screen.getByText(/sample title/i)).toBeInTheDocument();
@@ -19,11 +22,11 @@ describe("PlaceorderHeader", () => {
       screen.getByText(/this is a sample description/i),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/didn't find oss arifact available in the listing/i),
+      screen.getByText("Didn't find OSS artifact available in the listing?"),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        /place an on-demand request for one or more solution from the below list/i,
+        /Place an on-demand request for one or more solutions from the list below./i,
       ),
     ).toBeInTheDocument();
     expect(
@@ -54,19 +57,21 @@ describe("PlaceorderHeader", () => {
 
   it("displays request info message", () => {
     render(
-      <PlaceorderHeader
-        type="PROJECT"
-        title={title}
-        description={description}
-      />,
+      <ThemeProvider>
+        <PlaceorderHeader
+          type="PROJECT"
+          title={title}
+          description={description}
+        />
+      </ThemeProvider>
     );
 
     expect(
-      screen.getByText(/didn't find oss arifact available in the listing/i),
+      screen.getByText("Didn't find OSS artifact available in the listing?"),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        /place an on-demand request for one or more solution from the below list/i,
+        /Place an on-demand request for one or more solutions from the list below./i,
       ),
     ).toBeInTheDocument();
   });

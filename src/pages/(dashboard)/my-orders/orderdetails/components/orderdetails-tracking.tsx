@@ -9,7 +9,7 @@ interface Props {
 
 const OrderDetailsTracking = ({ stages }: Props) => {
   return (
-    <Card className="py-7 mb-7">
+    <Card className="py-7 mb-7 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
       <div className="flex justify-center xl:mx-16 2xl:mx-48">
         {stages.map((stage, index) => (
           <div className="flex" key={stage.name}>
@@ -19,18 +19,23 @@ const OrderDetailsTracking = ({ stages }: Props) => {
                   variant={stage.status === "pending" ? "pending" : "default"}
                 />
               </div>
-              <div>{stage.name}</div>
-              {stage.remark && <div>({stage.remark})</div>}
+              <div className="text-gray-900 dark:text-gray-100">{stage.name}</div>
+              {stage.remark && (
+                <div className="text-gray-700 dark:text-gray-400">
+                  ({stage.remark})
+                </div>
+              )}
             </div>
             <div className="mt-7">
               {index < stages.length - 1 && (
-                <Separator className="h-[2px] w-[50px] 2xl:w-[125px]" />
+                <Separator className="h-[2px] w-[50px] 2xl:w-[125px] bg-gray-400 dark:bg-gray-600" />
               )}
             </div>
           </div>
         ))}
       </div>
     </Card>
+
   );
 };
 

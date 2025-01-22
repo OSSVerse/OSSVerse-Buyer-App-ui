@@ -36,7 +36,7 @@ const DetailRow = ({ label, value }: { label: string, value: React.ReactNode }) 
 
 const OrderCard = ({ order }: { order: FinalProduct }) => (
   <Link to={`/dashboard/orders/detail/${encodeURIComponent(order?.id)}`}>
-    <Card className="max-w-full ld:max-w-[300px] sm:max-w-[280px] md:max-w-[290px] border rounded-lg overflow-hidden h-full flex flex-col">
+    <Card className="max-w-full bg-gray-100 dark:bg-gray-900 border shadow-none rounded-lg overflow-hidden h-full flex flex-col">
       <CardHeader className="pb-2">
         <CardTitle className="space-y-2">
           <Badge variant={"secondary"} className="h-16 w-16 flex items-center justify-center rounded-full">
